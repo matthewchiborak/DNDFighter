@@ -5,6 +5,11 @@ GameModel::GameModel()
 
 }
 
+void GameModel::framePassed()
+{
+
+}
+
 void GameModel::setCharacter1(BattleCharacter *value)
 {
     character1 = value;

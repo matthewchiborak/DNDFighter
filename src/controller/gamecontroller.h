@@ -21,8 +21,6 @@ private slots:
     void eventLoopTimerTimeout();
 
 private:
-    QTimer eventLoopTimer;
-
     AbstractView * view;
     GameModel * gameModel;
     GameStateFactoryAbstract * gameStateFactory;
@@ -30,6 +28,12 @@ private:
 
     UserInputHandler * userInputHandler;
 
+    long long theTimeNow;
+    long long timeOfLastButtonEvent;
+    double elapsed_millies;
+    int frameCount;
+
+    void handleFrameRate();
 };
 
 #endif // GAMECONTROLLER_H

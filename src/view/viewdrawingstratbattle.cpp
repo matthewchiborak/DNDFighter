@@ -13,9 +13,9 @@ void ViewDrawingStratBattle::draw(std::vector<DrawItem> *items)
     //model->getCharact1().getPos etc
     DrawItem character1Item(
                 model->getCharacter1()->getPositionX(),
-                0.0f,
-                1.0f,
-                1.0f,
+                model->getCharacter1()->getPositionY(),
+                model->getCharacter1()->getWidth(),
+                model->getCharacter1()->getHeight(),
                 model->getCharacter1()->getCurrentSprite()
                 );
     items->push_back(character1Item);
@@ -23,9 +23,9 @@ void ViewDrawingStratBattle::draw(std::vector<DrawItem> *items)
     //character 2. etc
     DrawItem character2Item(
                 model->getCharacter2()->getPositionX(),
-                0.0f,
-                1.0f,
-                1.0f,
+                model->getCharacter2()->getPositionY(),
+                model->getCharacter2()->getWidth(),
+                model->getCharacter2()->getHeight(),
                 model->getCharacter2()->getCurrentSprite()
                 );
     items->push_back(character2Item);

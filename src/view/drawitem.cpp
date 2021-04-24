@@ -1,6 +1,6 @@
 #include "drawitem.h"
 
-DrawItem::DrawItem(int x, int y, int w, int h, std::string key, bool flip)
+DrawItem::DrawItem(float x, float y, float w, float h, std::string key, bool flip)
 {
     this->x = x;
     this->y = y;

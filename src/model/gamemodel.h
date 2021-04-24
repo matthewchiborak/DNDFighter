@@ -8,6 +8,8 @@ class GameModel
 public:
     GameModel();
 
+    virtual void framePassed();
+
     void setCharacter1(BattleCharacter * value);
     void setCharacter2(BattleCharacter * value);
     BattleCharacter * getCharacter1();

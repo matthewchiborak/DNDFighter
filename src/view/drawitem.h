@@ -6,17 +6,17 @@
 class DrawItem
 {
 public:
-    DrawItem(int x,
-    int y,
-    int w,
-    int h,
+    DrawItem(float x,
+    float y,
+    float w,
+    float h,
     std::string key,
     bool flip = false);
 
-    int x;
-    int y;
-    int w;
-    int h;
+    float x;
+    float y;
+    float w;
+    float h;
     std::string key;
     bool flip;
 };

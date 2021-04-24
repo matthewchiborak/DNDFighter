@@ -3,7 +3,7 @@
 GameView::GameView(SpriteFlyweightFactoryAbstract *spriteFlyFact)
     : AbstractView(spriteFlyFact)
 {
-    resize(450, 600);
+    resize(1600, 900);
     QSurfaceFormat fmt;
     fmt.setDepthBufferSize(24);
     fmt.setStencilBufferSize(8);
@@ -14,6 +14,8 @@ GameView::GameView(SpriteFlyweightFactoryAbstract *spriteFlyFact)
 
 void GameView::paintGL()
 {
+    emit frameInited();
+
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -86,5 +88,5 @@ void GameView::resizeGL(int w, int h)
     m_projection.setToIdentity();
     m_projection.ortho(-7.5f, 8.5f, -4.f, 5.f, -1.f, 1.f);
 
-    glOrtho(-7.5f, 8.5f, -4.f, 5.f, -1, 1);
+    glOrtho(-1.77f, 1.77f, 0.f, 2.f, -1.f, 1.f);
 }

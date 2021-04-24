@@ -5,6 +5,7 @@
 
 class GameView : public AbstractView
 {
+    Q_OBJECT
 public:
     GameView(SpriteFlyweightFactoryAbstract * spriteFlyFact);
 

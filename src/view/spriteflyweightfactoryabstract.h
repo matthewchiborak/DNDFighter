@@ -22,7 +22,6 @@ protected:
 
     //list of sprites
     std::map<std::string, SpriteFlyweight*> spriteFlyweights;
-    //std::map<std::string, std::string> keyToImageLocationMap;
 
     virtual SpriteFlyweight* createFlyweight(std::string key);
 };

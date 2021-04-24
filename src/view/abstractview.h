@@ -17,10 +17,14 @@
 
 class AbstractView : public QOpenGLWindow
 {
+    Q_OBJECT
 public:
     AbstractView(SpriteFlyweightFactoryAbstract * spriteFlyFact);
 
     void setDrawingStrat(ViewDrawingStrat * viewDrawingStrat);
+
+signals:
+    void frameInited();
 
 protected:
     void paintGL() Q_DECL_OVERRIDE;
@@ -29,6 +33,7 @@ protected:
     SpriteFlyweightFactoryAbstract * spriteFlyFact;
 
     ViewDrawingStrat * viewDrawingStrat;
+
 };
 
 #endif // ABSTRACTVIEW_H

@@ -14,6 +14,10 @@ SOURCES += \
         src/controller/battlebuilder.cpp \
         src/controller/battlebuilderconcrete.cpp \
         src/controller/buttoncommand.cpp \
+        src/controller/buttoncommandcrouch.cpp \
+        src/controller/buttoncommandjump.cpp \
+        src/controller/buttoncommandkick.cpp \
+        src/controller/buttoncommandmoveforward.cpp \
         src/controller/buttoncommandpunch.cpp \
         src/controller/gamecontroller.cpp \
         src/controller/gamestatefactoryabstract.cpp \
@@ -47,6 +51,10 @@ HEADERS += \
     src/controller/battlebuilder.h \
     src/controller/battlebuilderconcrete.h \
     src/controller/buttoncommand.h \
+    src/controller/buttoncommandcrouch.h \
+    src/controller/buttoncommandjump.h \
+    src/controller/buttoncommandkick.h \
+    src/controller/buttoncommandmoveforward.h \
     src/controller/buttoncommandpunch.h \
     src/controller/gamecontroller.h \
     src/controller/gamestatefactoryabstract.h \

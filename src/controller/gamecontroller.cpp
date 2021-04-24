@@ -16,17 +16,43 @@ GameController::GameController(AbstractView *view, GameModel *gameModel, GameSta
     battleBuilder->makePlayer2("Duke", "Player");
     battleBuilder->makeStage("Test");
     this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
-
-    connect(&eventLoopTimer, SIGNAL(timeout()), this, SLOT(eventLoopTimerTimeout()));
 }
 
 void GameController::start()
 {
-    eventLoopTimer.start(20);
+    auto nowTime = std::chrono::system_clock::now().time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime).count();
+    theTimeNow = (millis);
+    timeOfLastButtonEvent = theTimeNow;
+    frameCount = 0;
+
+    connect(view, SIGNAL(frameInited()), this, SLOT(eventLoopTimerTimeout()));
     view->show();
 }
 
 void GameController::eventLoopTimerTimeout()
 {
     this->userInputHandler->handleUserInput();
+
+    gameModel->framePassed();
+
+    //handleFrameRate();
+}
+
+void GameController::handleFrameRate()
+{
+    frameCount++;
+
+    auto nowTime = std::chrono::system_clock::now().time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime).count();
+    theTimeNow =(millis);
+    elapsed_millies = theTimeNow - timeOfLastButtonEvent;
+
+
+    if(elapsed_millies >= 1000)
+    {
+        qDebug() << "FPS: " << frameCount;
+        timeOfLastButtonEvent = theTimeNow;
+        frameCount = 0;
+    }
 }
