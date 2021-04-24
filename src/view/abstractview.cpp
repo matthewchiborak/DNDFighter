@@ -1,8 +1,10 @@
 #include "abstractview.h"
 
-AbstractView::AbstractView()
+AbstractView::AbstractView(SpriteFlyweightFactoryAbstract *spriteFlyFact)
     : QOpenGLWindow(QOpenGLWindow::NoPartialUpdate)
 {
+    this->spriteFlyFact = spriteFlyFact;
+
 
 }
 

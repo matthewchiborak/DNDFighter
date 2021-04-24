@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "userinputstate.h"
+#include "userinputhandler.h"
 #include "../view/viewdrawingstrat.h"
 #include "../model/gamemodel.h"
 
@@ -12,7 +12,6 @@ class GameStateFactoryAbstract
 public:
     GameStateFactoryAbstract(GameModel * model);
 
-    virtual UserInputState * getUserInputState(std::string key);
     virtual ViewDrawingStrat * getViewDrawingStrat(std::string key);
 
 protected:

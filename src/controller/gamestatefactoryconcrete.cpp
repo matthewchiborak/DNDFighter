@@ -1,6 +1,5 @@
 #include "gamestatefactoryconcrete.h"
 
-#include "userinputstatebattle.h"
 #include "../view/viewdrawingstratbattle.h"
 
 GameStateFactoryConcrete::GameStateFactoryConcrete(GameModel *model)
@@ -9,12 +8,10 @@ GameStateFactoryConcrete::GameStateFactoryConcrete(GameModel *model)
 
 }
 
-UserInputState *GameStateFactoryConcrete::getUserInputState(std::string key)
-{
-    return new UserInputStateBattle(model);
-}
-
 ViewDrawingStrat *GameStateFactoryConcrete::getViewDrawingStrat(std::string key)
 {
+    if(key == "Battle")
+        return new ViewDrawingStratBattle(model);
+
     return new ViewDrawingStratBattle(model);
 }

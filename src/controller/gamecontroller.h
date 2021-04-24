@@ -6,13 +6,14 @@
 #include "../view/abstractview.h"
 #include "../model/gamemodel.h"
 #include "gamestatefactoryabstract.h"
-#include "userinputstate.h"
+#include "userinputhandler.h"
+#include "battlebuilder.h"
 
 class GameController : public QObject
 {
     Q_OBJECT
 public:
-    GameController(AbstractView * view, GameModel * gameModel, GameStateFactoryAbstract * gameStateFactory);
+    GameController(AbstractView * view, GameModel * gameModel, GameStateFactoryAbstract * gameStateFactory, BattleBuilder * battleBuilder);
 
     void start();
 
@@ -25,7 +26,9 @@ private:
     AbstractView * view;
     GameModel * gameModel;
     GameStateFactoryAbstract * gameStateFactory;
-    UserInputState * userInputState;
+    BattleBuilder * battleBuilder;
+
+    UserInputHandler * userInputHandler;
 
 };
 

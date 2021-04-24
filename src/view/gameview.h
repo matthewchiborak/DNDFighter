@@ -6,7 +6,7 @@
 class GameView : public AbstractView
 {
 public:
-    GameView();
+    GameView(SpriteFlyweightFactoryAbstract * spriteFlyFact);
 
 protected:
     void paintGL() Q_DECL_OVERRIDE;

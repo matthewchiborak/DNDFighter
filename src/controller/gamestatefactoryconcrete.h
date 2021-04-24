@@ -8,7 +8,6 @@ class GameStateFactoryConcrete : public GameStateFactoryAbstract
 public:
     GameStateFactoryConcrete(GameModel * model);
 
-    UserInputState * getUserInputState(std::string key);
     ViewDrawingStrat * getViewDrawingStrat(std::string key);
 };
 

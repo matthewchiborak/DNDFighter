@@ -12,18 +12,21 @@
 #include <QQueue>
 #include <QDebug>
 
+#include "spriteflyweightfactoryabstract.h"
 #include "viewdrawingstrat.h"
 
 class AbstractView : public QOpenGLWindow
 {
 public:
-    AbstractView();
+    AbstractView(SpriteFlyweightFactoryAbstract * spriteFlyFact);
 
     void setDrawingStrat(ViewDrawingStrat * viewDrawingStrat);
 
 protected:
     void paintGL() Q_DECL_OVERRIDE;
     void resizeGL(int w, int h) Q_DECL_OVERRIDE;
+
+    SpriteFlyweightFactoryAbstract * spriteFlyFact;
 
     ViewDrawingStrat * viewDrawingStrat;
 };

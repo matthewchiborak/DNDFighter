@@ -4,6 +4,8 @@
 #include "view/gameview.h"
 #include "model/gamemodelconcrete.h"
 #include "controller/gamestatefactoryconcrete.h"
+#include "controller/battlebuilderconcrete.h"
+#include "view/spriteflyweightfactory.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,11 +13,15 @@ int main(int argc, char *argv[])
 
     GameModelConcrete model;
 
-    GameView view;
+    SpriteFlyweightFactory spriteFlyFact("D:\\Qt Projects\\DNDFighter\\src\\resources\\CharacterSprites");
+
+    GameView view(&spriteFlyFact);
 
     GameStateFactoryConcrete gameStateFactory(&model);
 
-    GameController controller(&view, &model, &gameStateFactory);
+    BattleBuilderConcrete battleBuilder(&model);
+
+    GameController controller(&view, &model, &gameStateFactory, &battleBuilder);
     controller.start();
 
     return a.exec();
