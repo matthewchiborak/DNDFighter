@@ -23,16 +23,19 @@ SOURCES += \
         src/controller/gamecontroller.cpp \
         src/controller/gamestatefactoryabstract.cpp \
         src/controller/gamestatefactoryconcrete.cpp \
-        src/controller/userinputcommandfactory.cpp \
-        src/controller/userinputcommandfactoryconcrete.cpp \
         src/controller/userinputhandler.cpp \
         src/filemanagment/fileReader.cpp \
         src/filemanagment/filewriter.cpp \
         src/main.cpp \
+        src/model/attackmodel.cpp \
+        src/model/attackmodelstandard.cpp \
         src/model/battlecharacter.cpp \
         src/model/battlecharacterplayercontrol.cpp \
+        src/model/characterfactory.cpp \
+        src/model/characterfactoryconcrete.cpp \
         src/model/gamemodel.cpp \
         src/model/gamemodelconcrete.cpp \
+        src/model/hitbox.cpp \
         src/view/abstractview.cpp \
         src/view/drawitem.cpp \
         src/view/gameview.cpp \
@@ -61,15 +64,18 @@ HEADERS += \
     src/controller/gamecontroller.h \
     src/controller/gamestatefactoryabstract.h \
     src/controller/gamestatefactoryconcrete.h \
-    src/controller/userinputcommandfactory.h \
-    src/controller/userinputcommandfactoryconcrete.h \
     src/controller/userinputhandler.h \
     src/filemanagment/fileReader.h \
     src/filemanagment/filewriter.h \
+    src/model/attackmodel.h \
+    src/model/attackmodelstandard.h \
     src/model/battlecharacter.h \
     src/model/battlecharacterplayercontrol.h \
+    src/model/characterfactory.h \
+    src/model/characterfactoryconcrete.h \
     src/model/gamemodel.h \
     src/model/gamemodelconcrete.h \
+    src/model/hitbox.h \
     src/view/abstractview.h \
     src/view/drawitem.h \
     src/view/gameview.h \

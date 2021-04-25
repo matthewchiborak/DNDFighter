@@ -6,10 +6,9 @@
 #include "buttoncommandcrouch.h"
 #include "buttoncommandthrow.h"
 #include "buttoncommandjump.h"
-#include "../model/battlecharacterplayercontrol.h"
 
-BattleBuilderConcrete::BattleBuilderConcrete(GameModel *gameModel)//, UserInputCommandFactory *userInputCommandFactory)
-    : BattleBuilder(gameModel)//, userInputCommandFactory)
+BattleBuilderConcrete::BattleBuilderConcrete(GameModel *gameModel, CharacterFactory * characterFactory)
+    : BattleBuilder(gameModel, characterFactory)
 {
 
 }
@@ -17,7 +16,7 @@ BattleBuilderConcrete::BattleBuilderConcrete(GameModel *gameModel)//, UserInputC
 void BattleBuilderConcrete::makePlayer1(std::string character, std::string type)
 {
     //Probably make a factory for this based on character key passed in.
-    BattleCharacterPlayerControl * newPlayer = new BattleCharacterPlayerControl(character, 1.f/30.f, 100);
+    BattleCharacter * newPlayer = characterFactory->makeCharacter(character);
     gameModel->setCharacter1(newPlayer);
 
     newPlayer->setPositionX(-1);
@@ -41,10 +40,8 @@ void BattleBuilderConcrete::makePlayer1(std::string character, std::string type)
 void BattleBuilderConcrete::makePlayer2(std::string character, std::string type)
 {
     //Probably make a factory for this based on character key passed in.
-    BattleCharacterPlayerControl * newPlayer = new BattleCharacterPlayerControl(character, 1.f/30.f, 100);
+    BattleCharacter * newPlayer = characterFactory->makeCharacter(character);
     gameModel->setCharacter2(newPlayer);
-
-    newPlayer->doDamage(50);
 
     newPlayer->setPositionX(1);
     newPlayer->setPositionY(0);

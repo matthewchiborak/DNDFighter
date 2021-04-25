@@ -60,12 +60,12 @@ void BattleCharacterPlayerControl::punch()
     if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Punch";
-        recovery = 15;
+        addHitBox(punchModel->applyAttack());
     }
     else
     {
         currentSpriteKeySuffix = "CrouchPunch";
-        recovery = 15;
+        addHitBox(crouchPunchModel->applyAttack());
     }
 }
 
@@ -77,23 +77,35 @@ void BattleCharacterPlayerControl::kick()
     if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Kick";
-        recovery = 15;
+        addHitBox(kickModel->applyAttack());
     }
     else
     {
         currentSpriteKeySuffix = "CrouchKick";
-        recovery = 15;
+        addHitBox(crouchKickModel->applyAttack());
     }
 }
 
-void BattleCharacterPlayerControl::special(std::string key)
+void BattleCharacterPlayerControl::special()
 {
     if(recovery > 0)
         return;
 
-
-
-    qDebug() << "Do a special " << QString::fromStdString(key);
+    if(axisVert < 0)
+    {
+        //currentSpriteKeySuffix = "Kick";
+        addHitBox(downSpecialModel->applyAttack());
+    }
+    else if(axisHorz != 0)
+    {
+        //currentSpriteKeySuffix = "Kick";
+        addHitBox(forwardSpecialModel->applyAttack());
+    }
+    else if(axisHorz == 0 && axisVert == 0)
+    {
+        //currentSpriteKeySuffix = "Kick";
+        addHitBox(neutralSpecialModel->applyAttack());
+    }
 }
 
 void BattleCharacterPlayerControl::jump()
@@ -117,7 +129,7 @@ void BattleCharacterPlayerControl::doThrow()
         return;
 
     currentSpriteKeySuffix = "Throw";
-    recovery = 25;
+    addHitBox(throwModel->applyAttack());
 }
 
 void BattleCharacterPlayerControl::applyGravity()
@@ -135,4 +147,10 @@ void BattleCharacterPlayerControl::applyGravity()
     else
         setPositionY(0);
 
+}
+
+void BattleCharacterPlayerControl::applyHitStun(int hitStun)
+{
+    recovery = hitStun;
+    currentSpriteKeySuffix = "Hit";
 }

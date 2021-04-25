@@ -51,16 +51,16 @@ void ViewDrawingStratBattle::drawUI(std::vector<DrawItem> *items)
     items->push_back(character1Item);
 
     DrawItem char1HealthBarBack(
-                -1.3f,
-                1.85f,
+                -1.35f,
+                1.8f,
                 1.2f,
                 0.1f,
                 "\\UI\\HealthBarBack.png"
                 );
     items->push_back(char1HealthBarBack);
     DrawItem char1HealthBarFront(
-                -1.3f,
-                1.85f,
+                -1.35f + (1.2f - 1.2f * model->getCharacter1()->getHealthPercentage()),
+                1.8f,
                 1.2f * model->getCharacter1()->getHealthPercentage(),
                 0.1f,
                 "\\UI\\HealthBarFront.png"
@@ -79,16 +79,16 @@ void ViewDrawingStratBattle::drawUI(std::vector<DrawItem> *items)
     items->push_back(character2Item);
 
     DrawItem char2HealthBarBack(
-                0.1f,
-                1.85f,
+                0.15f,
+                1.8f,
                 1.2f,
                 0.1f,
                 "\\UI\\HealthBarBack.png"
                 );
     items->push_back(char2HealthBarBack);
     DrawItem char2HealthBarFront(
-                0.1f + 1.2f * model->getCharacter2()->getHealthPercentage(),
-                1.85f,
+                0.15f,
+                1.8f,
                 1.2f * model->getCharacter2()->getHealthPercentage(),
                 0.1f,
                 "\\UI\\HealthBarFront.png"

@@ -1,14 +1,15 @@
 #ifndef BATTLEBUILDER_H
 #define BATTLEBUILDER_H
 
-//#include "userinputcommandfactory.h"
 #include "userinputhandler.h"
 #include <string>
+
+#include "../model/characterfactory.h"
 
 class BattleBuilder
 {
 public:
-    BattleBuilder(GameModel * gameModel);//, UserInputCommandFactory * userInputCommandFactory);
+    BattleBuilder(GameModel * gameModel, CharacterFactory * characterFactory);
 
     void start();
     virtual void makePlayer1(std::string character, std::string type);
@@ -17,8 +18,8 @@ public:
     UserInputHandler * getCreatedUserInputHandler();
 
 protected:
-    //UserInputCommandFactory * userInputCommandFactory;
     GameModel * gameModel;
+    CharacterFactory * characterFactory;
 
     UserInputHandler * resultInputHandler;
 };

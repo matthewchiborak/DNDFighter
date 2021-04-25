@@ -6,7 +6,7 @@
 class BattleBuilderConcrete : public BattleBuilder
 {
 public:
-    BattleBuilderConcrete(GameModel * gameModel);//, UserInputCommandFactory * userInputCommandFactory);
+    BattleBuilderConcrete(GameModel * gameModel, CharacterFactory * characterFactory);
 
     void makePlayer1(std::string character, std::string type);
     void makePlayer2(std::string character, std::string type);

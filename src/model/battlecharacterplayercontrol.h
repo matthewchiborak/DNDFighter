@@ -14,11 +14,13 @@ public:
     void setVertAxis(int value);
     void punch();
     void kick();
-    void special(std::string key);
+    void special();
     void jump();
     void doThrow();
 
     void applyGravity();
+
+    void applyHitStun(int hitStun);
 
 private:
     bool walkState = false;

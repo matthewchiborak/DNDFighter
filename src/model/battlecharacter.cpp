@@ -43,12 +43,7 @@ void BattleCharacter::kick()
 
 }
 
-void BattleCharacter::move(double dir)
-{
-
-}
-
-void BattleCharacter::special(std::string key)
+void BattleCharacter::special()
 {
 
 }
@@ -128,7 +123,63 @@ void BattleCharacter::doDamage(int amount)
         currentHealth = 0;
 }
 
+void BattleCharacter::applyHitStun(int hitStun)
+{
+
+}
+
 float BattleCharacter::getHealthPercentage()
 {
     return (float)currentHealth / float(maxHealth);
+}
+
+void BattleCharacter::setRecovery(int value)
+{
+    recovery = value;
+}
+
+void BattleCharacter::addHitBox(HitBox *value)
+{
+    if(value != nullptr)
+        activeHitBoxes.push_back(value);
+}
+
+void BattleCharacter::setPunchModel(AttackModel *model)
+{
+    this->punchModel = model;
+}
+
+void BattleCharacter::setKickModel(AttackModel *model)
+{
+    this->kickModel = model;
+}
+
+void BattleCharacter::setCrouchPunchModel(AttackModel *model)
+{
+    this->crouchPunchModel = model;
+}
+
+void BattleCharacter::setCrouchKickModel(AttackModel *model)
+{
+    this->crouchKickModel = model;
+}
+
+void BattleCharacter::setThrowModel(AttackModel *model)
+{
+    this->throwModel = model;
+}
+
+void BattleCharacter::setNeutralSpecialModel(AttackModel *model)
+{
+    this->neutralSpecialModel = model;
+}
+
+void BattleCharacter::setForwardSpecialModel(AttackModel *model)
+{
+    this->forwardSpecialModel = model;
+}
+
+void BattleCharacter::setDownSpecialModel(AttackModel *model)
+{
+    this->downSpecialModel = model;
 }

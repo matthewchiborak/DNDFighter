@@ -2,6 +2,9 @@
 #define BATTLECHARACTER_H
 
 #include <string>
+#include <vector>
+#include "attackmodel.h"
+#include "hitbox.h"
 
 class BattleCharacter
 {
@@ -15,8 +18,7 @@ public:
 
     virtual void punch();
     virtual void kick();
-    virtual void move(double dir);
-    virtual void special(std::string key);
+    virtual void special();
     virtual void jump();
     virtual void doThrow();
 
@@ -35,7 +37,19 @@ public:
     virtual void applyGravity();
 
     void doDamage(int amount);
+    virtual void applyHitStun(int hitStun);
     float getHealthPercentage();
+    void setRecovery(int value);
+    void addHitBox(HitBox * value);
+
+    void setPunchModel(AttackModel * model);
+    void setKickModel(AttackModel * model);
+    void setCrouchPunchModel(AttackModel * model);
+    void setCrouchKickModel(AttackModel * model);
+    void setThrowModel(AttackModel * model);
+    void setNeutralSpecialModel(AttackModel * model);
+    void setForwardSpecialModel(AttackModel * model);
+    void setDownSpecialModel(AttackModel * model);
 
 protected:
     int currentHealth;
@@ -53,6 +67,17 @@ protected:
 
     float walkSpeed;
     int recovery;
+
+    AttackModel * punchModel;
+    AttackModel * kickModel;
+    AttackModel * crouchPunchModel;
+    AttackModel * crouchKickModel;
+    AttackModel * throwModel;
+    AttackModel * neutralSpecialModel;
+    AttackModel * forwardSpecialModel;
+    AttackModel * downSpecialModel;
+
+    std::vector<HitBox*> activeHitBoxes;
 };
 
 #endif // BATTLECHARACTER_H

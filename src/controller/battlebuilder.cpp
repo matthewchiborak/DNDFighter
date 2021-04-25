@@ -1,10 +1,10 @@
 #include "battlebuilder.h"
 
-BattleBuilder::BattleBuilder(GameModel *gameModel)//, UserInputCommandFactory *userInputCommandFactory)
+BattleBuilder::BattleBuilder(GameModel *gameModel, CharacterFactory *characterFactory)
 {
-    //this->userInputCommandFactory = userInputCommandFactory;
     this->gameModel = gameModel;
     this->resultInputHandler = nullptr;
+    this->characterFactory = characterFactory;
 }
 
 void BattleBuilder::start()
