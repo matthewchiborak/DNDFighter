@@ -2,8 +2,8 @@
 
 #include <QDebug>
 
-BattleCharacterPlayerControl::BattleCharacterPlayerControl(std::string spriteKeyPrefix, float walkSpeed, int health)
-    : BattleCharacter(spriteKeyPrefix, walkSpeed, health)
+BattleCharacterPlayerControl::BattleCharacterPlayerControl(std::string spriteKeyPrefix)
+    : BattleCharacter(spriteKeyPrefix)
 {
     this->currentSpriteKeySuffix = "Idle";
 }
@@ -91,19 +91,22 @@ void BattleCharacterPlayerControl::special()
     if(recovery > 0)
         return;
 
+    if(positionY > 0)
+        return;
+
     if(axisVert < 0)
     {
-        //currentSpriteKeySuffix = "Kick";
+        currentSpriteKeySuffix = "DownSpecial";
         addHitBox(downSpecialModel->applyAttack());
     }
     else if(axisHorz != 0)
     {
-        //currentSpriteKeySuffix = "Kick";
+        currentSpriteKeySuffix = "ForwardSpecial";
         addHitBox(forwardSpecialModel->applyAttack());
     }
     else if(axisHorz == 0 && axisVert == 0)
     {
-        //currentSpriteKeySuffix = "Kick";
+        currentSpriteKeySuffix = "NeutralSpecial";
         addHitBox(neutralSpecialModel->applyAttack());
     }
 }

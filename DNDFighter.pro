@@ -19,6 +19,7 @@ SOURCES += \
         src/controller/buttoncommandkick.cpp \
         src/controller/buttoncommandmoveforward.cpp \
         src/controller/buttoncommandpunch.cpp \
+        src/controller/buttoncommandspecial.cpp \
         src/controller/buttoncommandthrow.cpp \
         src/controller/gamecontroller.cpp \
         src/controller/gamestatefactoryabstract.cpp \
@@ -28,7 +29,9 @@ SOURCES += \
         src/filemanagment/filewriter.cpp \
         src/main.cpp \
         src/model/attackmodel.cpp \
+        src/model/attackmodelspecial.cpp \
         src/model/attackmodelstandard.cpp \
+        src/model/attackmodelthrow.cpp \
         src/model/battlecharacter.cpp \
         src/model/battlecharacterplayercontrol.cpp \
         src/model/characterfactory.cpp \
@@ -60,6 +63,7 @@ HEADERS += \
     src/controller/buttoncommandkick.h \
     src/controller/buttoncommandmoveforward.h \
     src/controller/buttoncommandpunch.h \
+    src/controller/buttoncommandspecial.h \
     src/controller/buttoncommandthrow.h \
     src/controller/gamecontroller.h \
     src/controller/gamestatefactoryabstract.h \
@@ -68,7 +72,9 @@ HEADERS += \
     src/filemanagment/fileReader.h \
     src/filemanagment/filewriter.h \
     src/model/attackmodel.h \
+    src/model/attackmodelspecial.h \
     src/model/attackmodelstandard.h \
+    src/model/attackmodelthrow.h \
     src/model/battlecharacter.h \
     src/model/battlecharacterplayercontrol.h \
     src/model/characterfactory.h \

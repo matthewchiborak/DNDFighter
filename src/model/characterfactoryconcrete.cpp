@@ -3,6 +3,12 @@
 #include "battlecharacterplayercontrol.h"
 
 #include "attackmodelstandard.h"
+#include "attackmodelthrow.h"
+#include "attackmodelspecial.h"
+
+#include "../filemanagment/fileReader.h"
+
+#include <QDebug>
 
 CharacterFactoryConcrete::CharacterFactoryConcrete(std::string characterInfoFilepath)
     : CharacterFactory(characterInfoFilepath)
@@ -12,16 +18,134 @@ CharacterFactoryConcrete::CharacterFactoryConcrete(std::string characterInfoFile
 
 BattleCharacter *CharacterFactoryConcrete::makeCharacter(std::string key)
 {
-    BattleCharacter * newChar = new BattleCharacterPlayerControl(key, 1.f/30.f, 100);
+    FileReader fr(characterInfoFilepath + "\\" + key + ".txt");
 
-    newChar->setPunchModel(new AttackModelStandard(newChar, 10));
-    newChar->setKickModel(new AttackModelStandard(newChar, 15));
-    newChar->setCrouchPunchModel(new AttackModelStandard(newChar, 20));
-    newChar->setCrouchKickModel(new AttackModelStandard(newChar, 30));
-    newChar->setThrowModel(new AttackModelStandard(newChar, 40));
-    newChar->setNeutralSpecialModel(new AttackModelStandard(newChar, 50));
-    newChar->setForwardSpecialModel(new AttackModelStandard(newChar, 60));
-    newChar->setDownSpecialModel(new AttackModelStandard(newChar, 70));
+    BattleCharacter * newChar = new BattleCharacterPlayerControl(key);
+
+    while(fr.hasNext())
+    {
+        std::vector<std::string> lineParts = fr.splitString(fr.next(), ',');
+
+        if(lineParts.at(0) == "Health")
+        {
+            newChar->setMaxHealth(std::stoi(lineParts.at(1)));
+            newChar->refillHealth();
+        }
+        else if(lineParts.at(0) == "Walk")
+           newChar->setWalkSpeed(std::stof(lineParts.at(1)));
+        else if(lineParts.at(0) == "Punch")
+            newChar->setPunchModel(new AttackModelStandard(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                           ,std::stoi(lineParts.at(8))
+                                                           ,std::stof(lineParts.at(9))
+                                                           ,std::stoi(lineParts.at(10))
+                                                           ,std::stoi(lineParts.at(11))
+                                                           ));
+        else if(lineParts.at(0) == "Kick")
+            newChar->setKickModel(new AttackModelStandard(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                          ,std::stoi(lineParts.at(8))
+                                                          ,std::stof(lineParts.at(9))
+                                                          ,std::stoi(lineParts.at(10))
+                                                          ,std::stoi(lineParts.at(11))
+                                                           ));
+        else if(lineParts.at(0) == "CrouchPunch")
+            newChar->setCrouchPunchModel(new AttackModelStandard(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                                 ,std::stoi(lineParts.at(8))
+                                                                 ,std::stof(lineParts.at(9))
+                                                                 ,std::stoi(lineParts.at(10))
+                                                                 ,std::stoi(lineParts.at(11))
+                                                           ));
+        else if(lineParts.at(0) == "CrouchKick")
+            newChar->setCrouchKickModel(new AttackModelStandard(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                                ,std::stoi(lineParts.at(8))
+                                                                ,std::stof(lineParts.at(9))
+                                                                ,std::stoi(lineParts.at(10))
+                                                                ,std::stoi(lineParts.at(11))
+                                                           ));
+        else if(lineParts.at(0) == "Throw")
+            newChar->setThrowModel(new AttackModelThrow(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                        ,std::stoi(lineParts.at(8))
+                                                        ,std::stof(lineParts.at(9))
+                                                        ,std::stoi(lineParts.at(10))
+                                                        ,std::stoi(lineParts.at(11))
+                                                           ));
+        else if(lineParts.at(0) == "NeutralSpecial")
+            newChar->setNeutralSpecialModel(new AttackModelSpecial(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                                   ,std::stoi(lineParts.at(8))
+                                                                   ,std::stof(lineParts.at(9))
+                                                                   ,std::stoi(lineParts.at(10))
+                                                                   ,std::stoi(lineParts.at(11))
+                                                           ));
+        else if(lineParts.at(0) == "ForwardSpecial")
+            newChar->setForwardSpecialModel(new AttackModelSpecial(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                                   ,std::stoi(lineParts.at(8))
+                                                                   ,std::stof(lineParts.at(9))
+                                                                   ,std::stoi(lineParts.at(10))
+                                                                   ,std::stoi(lineParts.at(11))
+                                                           ));
+        else if(lineParts.at(0) == "DownSpecial")
+            newChar->setDownSpecialModel(new AttackModelSpecial(newChar,
+                                                           std::stoi(lineParts.at(1)),
+                                                           std::stoi(lineParts.at(2)),
+                                                           std::stof(lineParts.at(3)),
+                                                           std::stof(lineParts.at(4)),
+                                                           std::stof(lineParts.at(5)),
+                                                           std::stof(lineParts.at(6)),
+                                                           lineParts.at(7)
+                                                                ,std::stoi(lineParts.at(8))
+                                                                ,std::stof(lineParts.at(9))
+                                                                ,std::stoi(lineParts.at(10))
+                                                                ,std::stoi(lineParts.at(11))
+                                                           ));
+    }
 
     return newChar;
 }

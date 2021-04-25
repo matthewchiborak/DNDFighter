@@ -2,14 +2,10 @@
 
 #include <QDebug>
 
-BattleCharacter::BattleCharacter(std::string spriteKeyPrefix, float walkSpeed, int health)
+BattleCharacter::BattleCharacter(std::string spriteKeyPrefix)
 {
-    this->currentHealth = health;
-    this->maxHealth = health;
-
     this->spriteKeyPrefix = spriteKeyPrefix;
 
-    this->walkSpeed = walkSpeed;
     recovery = 0;
     height = 1.f;
     width = 1.f;
@@ -142,6 +138,21 @@ void BattleCharacter::addHitBox(HitBox *value)
 {
     if(value != nullptr)
         activeHitBoxes.push_back(value);
+}
+
+void BattleCharacter::setMaxHealth(int value)
+{
+    maxHealth = value;
+}
+
+void BattleCharacter::refillHealth()
+{
+    currentHealth = maxHealth;
+}
+
+void BattleCharacter::setWalkSpeed(float value)
+{
+    walkSpeed = value;
 }
 
 void BattleCharacter::setPunchModel(AttackModel *model)

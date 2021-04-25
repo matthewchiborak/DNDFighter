@@ -17,6 +17,7 @@ private:
     float width;
     float height;
     float velocity;
+    int heightForBlocking; //0 - low, 1 - mid, 2- overhead
 };
 
 #endif // HITBOX_H

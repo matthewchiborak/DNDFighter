@@ -9,7 +9,7 @@
 class BattleCharacter
 {
 public:
-    BattleCharacter(std::string spriteKeyPrefix, float walkSpeed, int health);
+    BattleCharacter(std::string spriteKeyPrefix);
 
     virtual void setHorzAxis(int value);
     virtual void setVertAxis(int value);
@@ -41,6 +41,10 @@ public:
     float getHealthPercentage();
     void setRecovery(int value);
     void addHitBox(HitBox * value);
+
+    void setMaxHealth(int value);
+    void refillHealth();
+    void setWalkSpeed(float value);
 
     void setPunchModel(AttackModel * model);
     void setKickModel(AttackModel * model);
