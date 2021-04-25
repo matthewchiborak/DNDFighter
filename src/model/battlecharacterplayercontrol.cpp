@@ -2,46 +2,54 @@
 
 #include <QDebug>
 
-BattleCharacterPlayerControl::BattleCharacterPlayerControl(std::string spriteKeyPrefix, float walkSpeed)
-    : BattleCharacter(spriteKeyPrefix, walkSpeed)
+BattleCharacterPlayerControl::BattleCharacterPlayerControl(std::string spriteKeyPrefix, float walkSpeed, int health)
+    : BattleCharacter(spriteKeyPrefix, walkSpeed, health)
 {
     this->currentSpriteKeySuffix = "Idle";
 }
 
-void BattleCharacterPlayerControl::setIsCrouching(bool value)
-{
-    if(recovery > 0)
-        return;
-
-//    if(dir != 0)
-//        return;
-
-    isCrouching = value;
-    if(!isCrouching || positionY > 0)
-        this->currentSpriteKeySuffix = "Idle";
-    else
-        this->currentSpriteKeySuffix = "CrouchIdle";
-}
-
 void BattleCharacterPlayerControl::framePassed()
 {
-    if(recovery == 0)
-        return;
-
-    recovery--;
-
-    if(recovery <= 0)
+    if(recovery > 0)
     {
-        recovery = 0;
-
-        if(dir == 0)
-        {
-            if(!isCrouching || positionY > 0)
-                this->currentSpriteKeySuffix = "Idle";
-            else
-                this->currentSpriteKeySuffix = "CrouchIdle";
-        }
+        recovery--;
+        return;
     }
+
+    if(axisVert < 0)
+    {
+        this->currentSpriteKeySuffix = "CrouchIdle";
+        return;
+    }
+
+    if(axisHorz != 0 && positionY <= 0)
+    {
+        walkCount++;
+        if(walkCount > framesPerWalk)
+        {
+            if(walkState)
+                this->currentSpriteKeySuffix = "Idle";
+            else if(!walkState)
+                this->currentSpriteKeySuffix = "Walk";
+
+            walkState = !walkState;
+            walkCount = 0;
+        }
+        positionX += (walkSpeed * axisHorz);
+        return;
+    }
+
+    this->currentSpriteKeySuffix = "Idle";
+}
+
+void BattleCharacterPlayerControl::setHorzAxis(int value)
+{
+    axisHorz = value;
+}
+
+void BattleCharacterPlayerControl::setVertAxis(int value)
+{
+    axisVert = value;
 }
 
 void BattleCharacterPlayerControl::punch()
@@ -49,9 +57,7 @@ void BattleCharacterPlayerControl::punch()
     if(recovery > 0)
         return;
 
-    dir = 0;
-
-    if(!isCrouching)
+    if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Punch";
         recovery = 15;
@@ -68,9 +74,7 @@ void BattleCharacterPlayerControl::kick()
     if(recovery > 0)
         return;
 
-    dir = 0;
-
-    if(!isCrouching)
+    if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Kick";
         recovery = 15;
@@ -82,49 +86,12 @@ void BattleCharacterPlayerControl::kick()
     }
 }
 
-void BattleCharacterPlayerControl::move(double dir)
-{
-    if(recovery > 0)
-        return;
-
-    this->dir = dir;
-
-    if(positionY > 0)
-        return;
-
-    if(isCrouching)
-        return;
-
-    positionX += (walkSpeed * dir);
-
-    ////////////////////////
-    if(dir != 0)
-    {
-        walkCount++;
-        if(walkCount > framesPerWalk)
-        {
-            if(walkState)
-                this->currentSpriteKeySuffix = "Idle";
-            else if(!walkState)
-                this->currentSpriteKeySuffix = "Walk";
-
-            walkState = !walkState;
-            walkCount = 0;
-        }
-    }
-    else
-    {
-        walkState = false;
-        walkCount = 0;
-    }
-}
-
 void BattleCharacterPlayerControl::special(std::string key)
 {
     if(recovery > 0)
         return;
 
-    dir = 0;
+
 
     qDebug() << "Do a special " << QString::fromStdString(key);
 }
@@ -137,33 +104,31 @@ void BattleCharacterPlayerControl::jump()
     if(positionY > 0)
         return;
 
-    lockedDir = dir;
+    lockedDir = axisHorz;
+    framesSinceLastJump = 0;
+}
 
-//    if(dir == 0)
-//        return;
-//    else
-//        return;
+void BattleCharacterPlayerControl::doThrow()
+{
+    if(recovery > 0)
+        return;
 
-    auto nowTime = std::chrono::system_clock::now().time_since_epoch();
-    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime).count();
-    jumptheTimeNow = (millis);
-    jumptimeOfLastButtonEvent = jumptheTimeNow;
+    if(positionY > 0)
+        return;
+
+    currentSpriteKeySuffix = "Throw";
+    recovery = 25;
 }
 
 void BattleCharacterPlayerControl::applyGravity()
 {
     //x = x0 + v0t + 0.5at^2
+    framesSinceLastJump++;
 
-    auto nowTime = std::chrono::system_clock::now().time_since_epoch();
-    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime).count();
-    jumptheTimeNow =(millis);
-    jumpelapsed_millies = jumptheTimeNow - jumptimeOfLastButtonEvent;
-
-    potentialJumpPos = (jumpVelo*jumpelapsed_millies) + (0.5f * gravity * (jumpelapsed_millies*jumpelapsed_millies));
+    potentialJumpPos = (jumpVelo*framesSinceLastJump) + (0.5f * gravity * (framesSinceLastJump*framesSinceLastJump));
 
     if(potentialJumpPos > 0)
     {
-        isCrouching = false;
         positionX += (horzJumpSpeed * lockedDir);
         setPositionY(potentialJumpPos);
     }

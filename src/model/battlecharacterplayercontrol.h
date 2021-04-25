@@ -6,33 +6,31 @@
 class BattleCharacterPlayerControl : public BattleCharacter
 {
 public:
-    BattleCharacterPlayerControl(std::string spriteKeyPrefix, float walkSpeed);
+    BattleCharacterPlayerControl(std::string spriteKeyPrefix, float walkSpeed, int health);
 
-    void setIsCrouching(bool value);
     void framePassed();
 
+    void setHorzAxis(int value);
+    void setVertAxis(int value);
     void punch();
     void kick();
-    void move(double dir);
     void special(std::string key);
     void jump();
+    void doThrow();
 
     void applyGravity();
 
 private:
     bool walkState = false;
     int walkCount = 0;
-    int framesPerWalk = 5;
-    int dir = 0;
+    int framesPerWalk = 4;
 
-    long long jumptheTimeNow;
-    long long jumptimeOfLastButtonEvent;
-    double jumpelapsed_millies;
     float potentialJumpPos;
     int lockedDir = 0;
-    float horzJumpSpeed = (1.f/700.f);
-    float jumpVelo = (1.f/200.f);
-    float gravity = (-1.f/80000.f);
+    int framesSinceLastJump = 1000;
+    float horzJumpSpeed = (1.f/42.f);
+    float jumpVelo = (1.f/12.f);
+    float gravity = (-1.f/280.f);
 };
 
 #endif // BATTLECHARACTERPLAYERCONTROL_H

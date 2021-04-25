@@ -14,10 +14,10 @@ void ButtonCommandCrouch::execute()
 {
     if((GetAsyncKeyState(keyChar) & 0x8000))
     {
-        myCharacter->setIsCrouching(true);
+        myCharacter->setVertAxis(-1);
     }
     else
     {
-        myCharacter->setIsCrouching(false);
+        myCharacter->setVertAxis(0);
     }
 }

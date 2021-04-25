@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
     GameModelConcrete model;
 
-    SpriteFlyweightFactory spriteFlyFact("D:\\Qt Projects\\DNDFighter\\src\\resources\\CharacterSprites");
+    SpriteFlyweightFactory spriteFlyFact("D:\\Qt Projects\\DNDFighter\\src\\resources");
 
     GameView view(&spriteFlyFact);
 

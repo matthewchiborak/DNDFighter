@@ -19,6 +19,7 @@ SOURCES += \
         src/controller/buttoncommandkick.cpp \
         src/controller/buttoncommandmoveforward.cpp \
         src/controller/buttoncommandpunch.cpp \
+        src/controller/buttoncommandthrow.cpp \
         src/controller/gamecontroller.cpp \
         src/controller/gamestatefactoryabstract.cpp \
         src/controller/gamestatefactoryconcrete.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
     src/controller/buttoncommandkick.h \
     src/controller/buttoncommandmoveforward.h \
     src/controller/buttoncommandpunch.h \
+    src/controller/buttoncommandthrow.h \
     src/controller/gamecontroller.h \
     src/controller/gamestatefactoryabstract.h \
     src/controller/gamestatefactoryconcrete.h \

@@ -6,9 +6,10 @@
 class BattleCharacter
 {
 public:
-    BattleCharacter(std::string spriteKeyPrefix, float walkSpeed);
+    BattleCharacter(std::string spriteKeyPrefix, float walkSpeed, int health);
 
-    virtual void setIsCrouching(bool value);
+    virtual void setHorzAxis(int value);
+    virtual void setVertAxis(int value);
 
     virtual void framePassed();
 
@@ -17,6 +18,7 @@ public:
     virtual void move(double dir);
     virtual void special(std::string key);
     virtual void jump();
+    virtual void doThrow();
 
     float getPositionX();
     void setPositionX(float value);
@@ -28,11 +30,20 @@ public:
     void setHeight(float value);
 
     std::string getCurrentSprite();
+    std::string getSpriteKeyPrefix();
 
     virtual void applyGravity();
 
+    void doDamage(int amount);
+    float getHealthPercentage();
+
 protected:
-    bool isCrouching;
+    int currentHealth;
+    int maxHealth;
+
+    int axisHorz = 0;
+    int axisVert = 0;
+
     float width;
     float height;
     float positionX;

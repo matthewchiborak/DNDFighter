@@ -8,22 +8,13 @@
 class ButtonCommandMoveForward : public ButtonCommand
 {
 public:
-    ButtonCommandMoveForward(GameModel * model, char keyChar, BattleCharacter * myCharacter, int dir);
+    ButtonCommandMoveForward(GameModel * model, char keyChar, BattleCharacter * myCharacter, char oppositeKeyChar);
 
     void execute();
 
 private:
-    bool buttonIsDown;
-    int dir;
+    char oppositeKeyChar;
     BattleCharacter * myCharacter;
-
-    long long theTimeNow;
-    long long timeOfLastButtonEvent;
-    double elapsed_millies;
-
-    void handleKeyDown();
-    void handleKeyHold();
-    void handleKeyUp();
 };
 
 #endif // BUTTONCOMMANDMOVE_H
