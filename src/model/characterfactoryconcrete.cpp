@@ -36,7 +36,11 @@ float velocityX,
 float velocityY,
 int duration,
 int damage,
-bool isFixedToCharacter);
+bool isFixedToCharacter
+bool forceJumpSelf
+bool forceJumpEnemy
+bool forceJumpDir
+);
 */
 
     while(fr.hasNext())
@@ -50,6 +54,8 @@ bool isFixedToCharacter);
         }
         else if(lineParts.at(0) == "Walk")
            newChar->setWalkSpeed(std::stof(lineParts.at(1)));
+        else if(lineParts.at(0) == "HorzJumpSpeed")
+           newChar->setHorzJumpSpeed(std::stof(lineParts.at(1)));
         else if(lineParts.at(0) == "HurtBox")
             newChar->setHurtBox(std::stof(lineParts.at(1)), std::stof(lineParts.at(2)), std::stof(lineParts.at(3)), std::stof(lineParts.at(4)));
         else if(lineParts.at(0) == "HurtBoxCrouch")
@@ -69,6 +75,9 @@ bool isFixedToCharacter);
                                                            ,std::stoi(lineParts.at(11))
                                                            ,std::stoi(lineParts.at(12))
                                                            ,std::stoi(lineParts.at(13))
+                                                           ,std::stoi(lineParts.at(14)) == 1
+                                                           ,std::stoi(lineParts.at(15)) == 1
+                                                           ,std::stoi(lineParts.at(16))
                                                            ));
         else if(lineParts.at(0) == "Kick")
             newChar->setKickModel(new AttackModelStandard(newChar,
@@ -85,6 +94,9 @@ bool isFixedToCharacter);
                                                           ,std::stoi(lineParts.at(11))
                                                           ,std::stoi(lineParts.at(12))
                                                           ,std::stoi(lineParts.at(13))
+                                                          ,std::stoi(lineParts.at(14)) == 1
+                                                          ,std::stoi(lineParts.at(15)) == 1
+                                                          ,std::stoi(lineParts.at(16))
                                                            ));
         else if(lineParts.at(0) == "CrouchPunch")
             newChar->setCrouchPunchModel(new AttackModelStandard(newChar,
@@ -101,6 +113,9 @@ bool isFixedToCharacter);
                                                                  ,std::stoi(lineParts.at(11))
                                                                  ,std::stoi(lineParts.at(12))
                                                                  ,std::stoi(lineParts.at(13))
+                                                                 ,std::stoi(lineParts.at(14)) == 1
+                                                                 ,std::stoi(lineParts.at(15)) == 1
+                                                                 ,std::stoi(lineParts.at(16))
                                                            ));
         else if(lineParts.at(0) == "CrouchKick")
             newChar->setCrouchKickModel(new AttackModelStandard(newChar,
@@ -117,6 +132,9 @@ bool isFixedToCharacter);
                                                                 ,std::stoi(lineParts.at(11))
                                                                 ,std::stoi(lineParts.at(12))
                                                                 ,std::stoi(lineParts.at(13))
+                                                                ,std::stoi(lineParts.at(14)) == 1
+                                                                ,std::stoi(lineParts.at(15)) == 1
+                                                                ,std::stoi(lineParts.at(16))
                                                            ));
         else if(lineParts.at(0) == "Throw")
             newChar->setThrowModel(new AttackModelThrow(newChar,
@@ -133,6 +151,9 @@ bool isFixedToCharacter);
                                                         ,std::stoi(lineParts.at(11))
                                                         ,std::stoi(lineParts.at(12))
                                                         ,std::stoi(lineParts.at(13))
+                                                        ,std::stoi(lineParts.at(14)) == 1
+                                                        ,std::stoi(lineParts.at(15)) == 1
+                                                        ,std::stoi(lineParts.at(16))
                                                            ));
         else if(lineParts.at(0) == "NeutralSpecial")
             newChar->setNeutralSpecialModel(new AttackModelSpecial(newChar,
@@ -149,6 +170,9 @@ bool isFixedToCharacter);
                                                                    ,std::stoi(lineParts.at(11))
                                                                    ,std::stoi(lineParts.at(12))
                                                                    ,std::stoi(lineParts.at(13))
+                                                                   ,std::stoi(lineParts.at(14)) == 1
+                                                                   ,std::stoi(lineParts.at(15)) == 1
+                                                                   ,std::stoi(lineParts.at(16))
                                                            ));
         else if(lineParts.at(0) == "ForwardSpecial")
             newChar->setForwardSpecialModel(new AttackModelSpecial(newChar,
@@ -165,6 +189,9 @@ bool isFixedToCharacter);
                                                                    ,std::stoi(lineParts.at(11))
                                                                    ,std::stoi(lineParts.at(12))
                                                                    ,std::stoi(lineParts.at(13))
+                                                                   ,std::stoi(lineParts.at(14)) == 1
+                                                                   ,std::stoi(lineParts.at(15)) == 1
+                                                                   ,std::stoi(lineParts.at(16))
                                                            ));
         else if(lineParts.at(0) == "DownSpecial")
             newChar->setDownSpecialModel(new AttackModelSpecial(newChar,
@@ -181,6 +208,9 @@ bool isFixedToCharacter);
                                                                 ,std::stoi(lineParts.at(11))
                                                                 ,std::stoi(lineParts.at(12))
                                                                 ,std::stoi(lineParts.at(13))
+                                                                ,std::stoi(lineParts.at(14)) == 1
+                                                                ,std::stoi(lineParts.at(15)) == 1
+                                                                ,std::stoi(lineParts.at(16))
                                                            ));
     }
 

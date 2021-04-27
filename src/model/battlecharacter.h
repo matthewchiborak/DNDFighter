@@ -20,6 +20,7 @@ public:
     virtual void kick();
     virtual void special();
     virtual void jump();
+    virtual bool forceJump(int dir);
     virtual void doThrow();
 
     float getPositionX();
@@ -45,6 +46,7 @@ public:
     void setMaxHealth(int value);
     void refillHealth();
     void setWalkSpeed(float value);
+    void setHorzJumpSpeed(float value);
 
     void setPunchModel(AttackModel * model);
     void setKickModel(AttackModel * model);
@@ -82,7 +84,9 @@ protected:
     std::string currentSpriteKeySuffix;
 
     float walkSpeed;
+    float horzJumpSpeed;
     int recovery;
+    int hitstun;
 
     AttackModel * punchModel;
     AttackModel * kickModel;

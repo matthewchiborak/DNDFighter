@@ -13,6 +13,7 @@ void BattleCharacterPlayerControl::framePassed()
     if(recovery > 0)
     {
         recovery--;
+        hitstun--;
         return;
     }
 
@@ -60,12 +61,12 @@ void BattleCharacterPlayerControl::punch()
     if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Punch";
-        addHitBox(punchModel->applyAttack(positionX, positionY));
+        addHitBox(punchModel->applyAttack(positionX, positionY, axisHorz));
     }
     else
     {
         currentSpriteKeySuffix = "CrouchPunch";
-        addHitBox(crouchPunchModel->applyAttack(positionX, positionY));
+        addHitBox(crouchPunchModel->applyAttack(positionX, positionY, axisHorz));
     }
 }
 
@@ -77,12 +78,12 @@ void BattleCharacterPlayerControl::kick()
     if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Kick";
-        addHitBox(kickModel->applyAttack(positionX, positionY));
+        addHitBox(kickModel->applyAttack(positionX, positionY, axisHorz));
     }
     else
     {
         currentSpriteKeySuffix = "CrouchKick";
-        addHitBox(crouchKickModel->applyAttack(positionX, positionY));
+        addHitBox(crouchKickModel->applyAttack(positionX, positionY, axisHorz));
     }
 }
 
@@ -97,17 +98,17 @@ void BattleCharacterPlayerControl::special()
     if(axisVert < 0)
     {
         currentSpriteKeySuffix = "DownSpecial";
-        addHitBox(downSpecialModel->applyAttack(positionX, positionY));
+        addHitBox(downSpecialModel->applyAttack(positionX, positionY, axisHorz));
     }
     else if(axisHorz != 0)
     {
         currentSpriteKeySuffix = "ForwardSpecial";
-        addHitBox(forwardSpecialModel->applyAttack(positionX, positionY));
+        addHitBox(forwardSpecialModel->applyAttack(positionX, positionY, axisHorz));
     }
     else if(axisHorz == 0 && axisVert == 0)
     {
         currentSpriteKeySuffix = "NeutralSpecial";
-        addHitBox(neutralSpecialModel->applyAttack(positionX, positionY));
+        addHitBox(neutralSpecialModel->applyAttack(positionX, positionY, axisHorz));
     }
 }
 
@@ -123,6 +124,19 @@ void BattleCharacterPlayerControl::jump()
     framesSinceLastJump = 0;
 }
 
+bool BattleCharacterPlayerControl::forceJump(int dir)
+{
+    if(hitstun > 0)
+        return false;
+
+    if(positionY > 0)
+        return false;
+
+    lockedDir = dir;
+    framesSinceLastJump = 0;
+    return true;
+}
+
 void BattleCharacterPlayerControl::doThrow()
 {
     if(recovery > 0)
@@ -132,7 +146,11 @@ void BattleCharacterPlayerControl::doThrow()
         return;
 
     currentSpriteKeySuffix = "Throw";
-    addHitBox(throwModel->applyAttack(positionX, positionY));
+
+    if(axisHorz == 0)
+        addHitBox(throwModel->applyAttack(positionX, positionY, 1));
+    else
+        addHitBox(throwModel->applyAttack(positionX, positionY, axisHorz));
 }
 
 void BattleCharacterPlayerControl::applyGravity()
@@ -155,6 +173,7 @@ void BattleCharacterPlayerControl::applyGravity()
 void BattleCharacterPlayerControl::applyHitStun(int hitStun)
 {
     recovery = hitStun;
+    this->hitstun = hitStun;
     currentSpriteKeySuffix = "Hit";
 }
 

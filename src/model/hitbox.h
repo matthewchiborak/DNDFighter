@@ -21,7 +21,10 @@ public:
             int heightForBlocking,
             bool isFixedToCharacter,
             float characterPosX,
-            float characterPosY
+            float characterPosY,
+            bool forceJumpSelf,
+            bool forceJumpEnemy,
+            int forceJumpDir
             );
 
     bool gethasVisuals();
@@ -39,9 +42,16 @@ public:
     void setPos(float charPosX, float charPosY);
     void advance();
     bool isDone();
+    void makeDone();
 
     float getPosX();
     float getPosY();
+
+    bool getforceAJumpEnemy();
+    bool getforceAJumpSelf();
+    int getforceJumpDir();
+
+    static bool boxCollisions(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2);
 
 private:
     float spawnPosX;
@@ -60,6 +70,9 @@ private:
     float velocityY;
     int heightForBlocking; //0 - low, 1 - mid, 2- overhead
     bool isFixedToCharacter;
+    bool forceAJumpEnemy;
+    bool forceAJumpSelf;
+    int forceJumpDir;
 
     float characterPosXAtSpawn;
     float characterPosYAtSpawn;

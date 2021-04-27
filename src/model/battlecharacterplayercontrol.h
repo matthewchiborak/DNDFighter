@@ -16,6 +16,7 @@ public:
     void kick();
     void special();
     void jump();
+    bool forceJump(int dir);
     void doThrow();
 
     void applyGravity();
@@ -35,7 +36,6 @@ private:
     float potentialJumpPos;
     int lockedDir = 0;
     int framesSinceLastJump = 1000;
-    float horzJumpSpeed = (1.f/42.f);
     float jumpVelo = (1.f/12.f);
     float gravity = (-1.f/280.f);
 };

@@ -9,9 +9,11 @@ class AttackModel
 {
 public:
     AttackModel(BattleCharacter * user, int recovery, int hitStun, float posX, float posY, float w, float h,
-                std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter);
+                std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter,
+                bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir
+                );
 
-    virtual HitBox * applyAttack(float characterPosX, float characterPosY);
+    virtual HitBox * applyAttack(float characterPosX, float characterPosY, int dir);
 
 protected:
     BattleCharacter * user;
@@ -29,6 +31,9 @@ protected:
     int damage;
     int duration;
     bool isFixedToCharacter;
+    bool forceJumpSelf;
+    bool forceJumpEnemy;
+    int forceJumpDir;
 };
 
 #endif // ATTACKMODEL_H

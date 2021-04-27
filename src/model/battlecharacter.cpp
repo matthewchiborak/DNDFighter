@@ -7,6 +7,7 @@ BattleCharacter::BattleCharacter(std::string spriteKeyPrefix)
     this->spriteKeyPrefix = spriteKeyPrefix;
 
     recovery = 0;
+    hitstun = 0;
     height = 1.f;
     width = 1.f;
     axisHorz = 0;
@@ -47,6 +48,11 @@ void BattleCharacter::special()
 void BattleCharacter::jump()
 {
 
+}
+
+bool BattleCharacter::forceJump(int dir)
+{
+    return false;
 }
 
 void BattleCharacter::doThrow()
@@ -153,6 +159,11 @@ void BattleCharacter::refillHealth()
 void BattleCharacter::setWalkSpeed(float value)
 {
     walkSpeed = value;
+}
+
+void BattleCharacter::setHorzJumpSpeed(float value)
+{
+    horzJumpSpeed = value;
 }
 
 void BattleCharacter::setPunchModel(AttackModel *model)
