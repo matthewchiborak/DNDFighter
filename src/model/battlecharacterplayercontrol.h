@@ -22,6 +22,11 @@ public:
 
     void applyHitStun(int hitStun);
 
+    void setHurtBox(float posx, float posy, float w, float h);
+    void setHurtBoxCrouch(float posx, float posy, float w, float h);
+
+    void advanceHitBoxes();
+
 private:
     bool walkState = false;
     int walkCount = 0;

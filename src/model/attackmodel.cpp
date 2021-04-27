@@ -1,6 +1,6 @@
 #include "attackmodel.h"
 
-AttackModel::AttackModel(BattleCharacter *user, int recovery, int hitStun, float posX, float posY, float w, float h, std::string hitboxSprite, int heightForBlocking, float velocity, int duration, int damage)
+AttackModel::AttackModel(BattleCharacter *user, int recovery, int hitStun, float posX, float posY, float w, float h, std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter)
 {
     this->user = user;
     this->recovery = recovery;
@@ -11,12 +11,14 @@ AttackModel::AttackModel(BattleCharacter *user, int recovery, int hitStun, float
     this->h = h;
     this->hitBoxSprite = hitboxSprite;
     this->heightForBlocking = heightForBlocking;
-    this->velocity = velocity;
+    this->velocityX = velocityX;
+    this->velocityY = velocityY;
     this->duration = duration;
     this->damage = damage;
+    this->isFixedToCharacter = isFixedToCharacter;
 }
 
-HitBox *AttackModel::applyAttack()
+HitBox *AttackModel::applyAttack(float characterPosX, float characterPosY)
 {
     return nullptr;
 }

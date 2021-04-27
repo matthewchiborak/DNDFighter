@@ -60,12 +60,12 @@ void BattleCharacterPlayerControl::punch()
     if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Punch";
-        addHitBox(punchModel->applyAttack());
+        addHitBox(punchModel->applyAttack(positionX, positionY));
     }
     else
     {
         currentSpriteKeySuffix = "CrouchPunch";
-        addHitBox(crouchPunchModel->applyAttack());
+        addHitBox(crouchPunchModel->applyAttack(positionX, positionY));
     }
 }
 
@@ -77,12 +77,12 @@ void BattleCharacterPlayerControl::kick()
     if(axisVert >= 0)
     {
         currentSpriteKeySuffix = "Kick";
-        addHitBox(kickModel->applyAttack());
+        addHitBox(kickModel->applyAttack(positionX, positionY));
     }
     else
     {
         currentSpriteKeySuffix = "CrouchKick";
-        addHitBox(crouchKickModel->applyAttack());
+        addHitBox(crouchKickModel->applyAttack(positionX, positionY));
     }
 }
 
@@ -97,17 +97,17 @@ void BattleCharacterPlayerControl::special()
     if(axisVert < 0)
     {
         currentSpriteKeySuffix = "DownSpecial";
-        addHitBox(downSpecialModel->applyAttack());
+        addHitBox(downSpecialModel->applyAttack(positionX, positionY));
     }
     else if(axisHorz != 0)
     {
         currentSpriteKeySuffix = "ForwardSpecial";
-        addHitBox(forwardSpecialModel->applyAttack());
+        addHitBox(forwardSpecialModel->applyAttack(positionX, positionY));
     }
     else if(axisHorz == 0 && axisVert == 0)
     {
         currentSpriteKeySuffix = "NeutralSpecial";
-        addHitBox(neutralSpecialModel->applyAttack());
+        addHitBox(neutralSpecialModel->applyAttack(positionX, positionY));
     }
 }
 
@@ -132,7 +132,7 @@ void BattleCharacterPlayerControl::doThrow()
         return;
 
     currentSpriteKeySuffix = "Throw";
-    addHitBox(throwModel->applyAttack());
+    addHitBox(throwModel->applyAttack(positionX, positionY));
 }
 
 void BattleCharacterPlayerControl::applyGravity()
@@ -156,4 +156,55 @@ void BattleCharacterPlayerControl::applyHitStun(int hitStun)
 {
     recovery = hitStun;
     currentSpriteKeySuffix = "Hit";
+}
+
+void BattleCharacterPlayerControl::setHurtBox(float posx, float posy, float w, float h)
+{
+    this->hurtBoxPosX = posx;
+    this->hurtBoxPosY = posy;
+    this->hurtBoxWidth = w;
+    this->hurtBoxHeight = h;
+}
+
+void BattleCharacterPlayerControl::setHurtBoxCrouch(float posx, float posy, float w, float h)
+{
+    this->hurtBoxPosXCrouch = posx;
+    this->hurtBoxPosYCrouch = posy;
+    this->hurtBoxWidthCrouch = w;
+    this->hurtBoxHeightCrouch = h;
+}
+
+void BattleCharacterPlayerControl::advanceHitBoxes()
+{
+    std::vector<HitBox*> toKeep;
+    std::vector<HitBox*> toTrash;
+
+    for(int i = 0; i < activeHitBoxes.size(); i++)
+    {
+        if(activeHitBoxes.at(i)->getisFixedToCharacter())
+        {
+            activeHitBoxes.at(i)->setPos(positionX, positionY);
+        }
+
+        activeHitBoxes.at(i)->advance();
+
+        if(activeHitBoxes.at(i)->isDone())
+        {
+            toTrash.push_back(activeHitBoxes.at(i));
+        }
+        else
+        {
+            toKeep.push_back(activeHitBoxes.at(i));
+        }
+    }
+
+    activeHitBoxes.clear();
+    for(int i = 0; i < toKeep.size(); i++)
+    {
+        activeHitBoxes.push_back(toKeep.at(i));
+    }
+    for(int i = 0; i < toTrash.size(); i++)
+    {
+        delete toTrash.at(i);
+    }
 }

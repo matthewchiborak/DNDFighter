@@ -55,6 +55,18 @@ public:
     void setForwardSpecialModel(AttackModel * model);
     void setDownSpecialModel(AttackModel * model);
 
+    virtual void setHurtBox(float posx, float posy, float w, float h);
+    virtual void setHurtBoxCrouch(float posx, float posy, float w, float h);
+
+    virtual void advanceHitBoxes();
+
+    std::vector<HitBox*> * getActiveHitBoxes();
+
+    float gethurtBoxPosX();
+    float gethurtBoxPosY();
+    float gethurtBoxHeight();
+    float gethurtBoxWidth();
+
 protected:
     int currentHealth;
     int maxHealth;
@@ -82,6 +94,16 @@ protected:
     AttackModel * downSpecialModel;
 
     std::vector<HitBox*> activeHitBoxes;
+
+    float hurtBoxPosX;
+    float hurtBoxPosY;
+    float hurtBoxHeight;
+    float hurtBoxWidth;
+
+    float hurtBoxPosXCrouch;
+    float hurtBoxPosYCrouch;
+    float hurtBoxHeightCrouch;
+    float hurtBoxWidthCrouch;
 };
 
 #endif // BATTLECHARACTER_H

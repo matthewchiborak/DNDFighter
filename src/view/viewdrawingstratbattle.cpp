@@ -1,5 +1,7 @@
 #include "viewdrawingstratbattle.h"
 
+#include <QDebug>
+
 ViewDrawingStratBattle::ViewDrawingStratBattle(GameModel *model)
     : ViewDrawingStrat(model)
 {
@@ -11,6 +13,7 @@ void ViewDrawingStratBattle::draw(std::vector<DrawItem> *items)
     drawBackground(items);
     drawUI(items);
     drawCharacters(items);
+    drawHitBoxes(items);
 }
 
 void ViewDrawingStratBattle::drawBackground(std::vector<DrawItem> *items)
@@ -37,6 +40,51 @@ void ViewDrawingStratBattle::drawCharacters(std::vector<DrawItem> *items)
                 model->getCharacter2()->getCurrentSprite()
                 );
     items->push_back(character2Item);
+}
+
+void ViewDrawingStratBattle::drawHitBoxes(std::vector<DrawItem> *items)
+{
+    drawHitBoxACharacter(items, model->getCharacter1());
+    drawHitBoxACharacter(items, model->getCharacter2());
+}
+
+void ViewDrawingStratBattle::drawHitBoxACharacter(std::vector<DrawItem> *items, BattleCharacter *character)
+{
+    for(int i = 0; i < character->getActiveHitBoxes()->size(); i++)
+    {
+        if(character->getActiveHitBoxes()->at(i)->gethasVisuals())
+        {
+            DrawItem hitbox1(
+                        character->getActiveHitBoxes()->at(i)->getPosX(),
+                        character->getActiveHitBoxes()->at(i)->getPosY(),
+                        character->getActiveHitBoxes()->at(i)->getwidth(),
+                        character->getActiveHitBoxes()->at(i)->getheight(),
+                        "\\CharacterSprites\\" + character->getSpriteKeyPrefix() + "\\" + character->getActiveHitBoxes()->at(i)->getsprite() + ".png"
+                        );
+            items->push_back(hitbox1);
+        }
+        else
+        {
+            //Just to testing where the normals are. Wont have this in final
+            DrawItem hitbox1(
+                        character->getActiveHitBoxes()->at(i)->getPosX(),
+                        character->getActiveHitBoxes()->at(i)->getPosY(),
+                        character->getActiveHitBoxes()->at(i)->getwidth(),
+                        character->getActiveHitBoxes()->at(i)->getheight(),
+                        "\\UI\\HealthBarBack.png"
+                        );
+            items->push_back(hitbox1);
+        }
+    }
+
+    DrawItem hurtbox(
+                character->gethurtBoxPosX(),
+                character->gethurtBoxPosY(),
+                character->gethurtBoxWidth(),
+                character->gethurtBoxHeight(),
+                "\\UI\\HurtBox.png"
+                );
+    items->push_back(hurtbox);
 }
 
 void ViewDrawingStratBattle::drawUI(std::vector<DrawItem> *items)

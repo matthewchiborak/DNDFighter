@@ -194,3 +194,55 @@ void BattleCharacter::setDownSpecialModel(AttackModel *model)
 {
     this->downSpecialModel = model;
 }
+
+void BattleCharacter::setHurtBox(float posx, float posy, float w, float h)
+{
+
+}
+
+void BattleCharacter::setHurtBoxCrouch(float posx, float posy, float w, float h)
+{
+
+}
+
+void BattleCharacter::advanceHitBoxes()
+{
+
+}
+
+std::vector<HitBox *> *BattleCharacter::getActiveHitBoxes()
+{
+    return &activeHitBoxes;
+}
+
+float BattleCharacter::gethurtBoxPosX()
+{
+    if(axisVert < 0)
+        return positionX + hurtBoxPosXCrouch;
+
+    return positionX + hurtBoxPosX;
+}
+
+float BattleCharacter::gethurtBoxPosY()
+{
+    if(axisVert < 0)
+        return positionY + hurtBoxPosYCrouch;
+
+    return positionY + hurtBoxPosY;
+}
+
+float BattleCharacter::gethurtBoxHeight()
+{
+    if(axisVert < 0)
+        return hurtBoxHeightCrouch;
+
+    return hurtBoxHeight;
+}
+
+float BattleCharacter::gethurtBoxWidth()
+{
+    if(axisVert < 0)
+        return hurtBoxWidthCrouch;
+
+    return hurtBoxWidth;
+}

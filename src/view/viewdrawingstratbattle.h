@@ -13,6 +13,9 @@ public:
 private:
     void drawBackground(std::vector<DrawItem> *items);
     void drawCharacters(std::vector<DrawItem> *items);
+    void drawHitBoxes(std::vector<DrawItem> *items);
+    void drawHitBoxACharacter(std::vector<DrawItem> *items, BattleCharacter * character);
+
     void drawUI(std::vector<DrawItem> *items);
 };
 

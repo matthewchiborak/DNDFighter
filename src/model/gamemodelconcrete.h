@@ -9,6 +9,11 @@ public:
     GameModelConcrete();
 
     void framePassed();
+
+private:
+    void applyPhysics();
+    void advanceHitBoxes();
+    void handleCollisions();
 };
 
 #endif // GAMEMODELCONCRETE_H
