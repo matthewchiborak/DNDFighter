@@ -2,20 +2,26 @@
 
 #include <QDebug>
 
-GameController::GameController(AbstractView *view, GameModel *gameModel, GameStateFactoryAbstract *gameStateFactory, BattleBuilder * battleBuilder)
+GameController::GameController(AbstractView *view, GameModel *gameModel, GameStateFactoryAbstract *gameStateFactory, BattleBuilder * battleBuilder, CharacterSelectBuilder *characterSelectBuilder)
 {
+    allowGameModelUpdates = false;
+
     this->view = view;
     this->gameModel = gameModel;
     this->gameStateFactory = gameStateFactory;
     this->battleBuilder = battleBuilder;
+    this->characterSelectBuilder = characterSelectBuilder;
 
-    view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("Battle"));
+    view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("CharacterSelect"));
+    this->userInputHandler = characterSelectBuilder->getCreatedUserInputHandler();
 
-    battleBuilder->start();
-    battleBuilder->makePlayer1("Duke", "Player");
-    battleBuilder->makePlayer2("Duke", "Player");
-    battleBuilder->makeStage("Test");
-    this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
+    //view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("Battle"));
+
+//    battleBuilder->start();
+//    battleBuilder->makePlayer1("Duke", "Player");
+//    battleBuilder->makePlayer2("Duke", "Player");
+//    battleBuilder->makeStage("Test");
+//    this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
 }
 
 void GameController::start()
@@ -34,9 +40,10 @@ void GameController::eventLoopTimerTimeout()
 {
     this->userInputHandler->handleUserInput();
 
-    gameModel->framePassed();
-
-    //handleFrameRate();
+    if(allowGameModelUpdates)
+        gameModel->framePassed();
+    else if(gameModel->getCharacterSelectModel()->getReadyToStartFight())
+        switchToBattleMode();
 }
 
 void GameController::handleFrameRate()
@@ -55,4 +62,17 @@ void GameController::handleFrameRate()
         timeOfLastButtonEvent = theTimeNow;
         frameCount = 0;
     }
+}
+
+void GameController::switchToBattleMode()
+{
+    battleBuilder->start();
+    battleBuilder->makePlayer1(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedOneIndex()), "Player");
+    battleBuilder->makePlayer2(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedTwoIndex()), "Player");
+    battleBuilder->makeStage("Test");
+    this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
+
+    view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("Battle"));
+
+    allowGameModelUpdates = true;
 }

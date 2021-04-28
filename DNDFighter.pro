@@ -17,10 +17,14 @@ SOURCES += \
         src/controller/buttoncommandcrouch.cpp \
         src/controller/buttoncommandjump.cpp \
         src/controller/buttoncommandkick.cpp \
+        src/controller/buttoncommandmenuenter.cpp \
+        src/controller/buttoncommandmenumove.cpp \
         src/controller/buttoncommandmoveforward.cpp \
         src/controller/buttoncommandpunch.cpp \
         src/controller/buttoncommandspecial.cpp \
         src/controller/buttoncommandthrow.cpp \
+        src/controller/characterselectbuilder.cpp \
+        src/controller/characterselectbuilderconcrete.cpp \
         src/controller/gamecontroller.cpp \
         src/controller/gamestatefactoryabstract.cpp \
         src/controller/gamestatefactoryconcrete.cpp \
@@ -36,6 +40,7 @@ SOURCES += \
         src/model/battlecharacterplayercontrol.cpp \
         src/model/characterfactory.cpp \
         src/model/characterfactoryconcrete.cpp \
+        src/model/characterselectmodel.cpp \
         src/model/gamemodel.cpp \
         src/model/gamemodelconcrete.cpp \
         src/model/hitbox.cpp \
@@ -47,7 +52,8 @@ SOURCES += \
         src/view/spriteflyweightfactoryabstract.cpp \
         src/view/stb_image.c \
         src/view/viewdrawingstrat.cpp \
-        src/view/viewdrawingstratbattle.cpp
+        src/view/viewdrawingstratbattle.cpp \
+        src/view/viewdrawingstratcharacterselect.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -61,10 +67,14 @@ HEADERS += \
     src/controller/buttoncommandcrouch.h \
     src/controller/buttoncommandjump.h \
     src/controller/buttoncommandkick.h \
+    src/controller/buttoncommandmenuenter.h \
+    src/controller/buttoncommandmenumove.h \
     src/controller/buttoncommandmoveforward.h \
     src/controller/buttoncommandpunch.h \
     src/controller/buttoncommandspecial.h \
     src/controller/buttoncommandthrow.h \
+    src/controller/characterselectbuilder.h \
+    src/controller/characterselectbuilderconcrete.h \
     src/controller/gamecontroller.h \
     src/controller/gamestatefactoryabstract.h \
     src/controller/gamestatefactoryconcrete.h \
@@ -79,6 +89,7 @@ HEADERS += \
     src/model/battlecharacterplayercontrol.h \
     src/model/characterfactory.h \
     src/model/characterfactoryconcrete.h \
+    src/model/characterselectmodel.h \
     src/model/gamemodel.h \
     src/model/gamemodelconcrete.h \
     src/model/hitbox.h \
@@ -90,7 +101,8 @@ HEADERS += \
     src/view/spriteflyweightfactoryabstract.h \
     src/view/stb_image.h \
     src/view/viewdrawingstrat.h \
-    src/view/viewdrawingstratbattle.h
+    src/view/viewdrawingstratbattle.h \
+    src/view/viewdrawingstratcharacterselect.h
 
 LIBS += -lOpenGL32
 

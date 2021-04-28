@@ -2,8 +2,8 @@
 
 #include <QDebug>
 
-GameModelConcrete::GameModelConcrete()
-    : GameModel()
+GameModelConcrete::GameModelConcrete(std::string characterListFile)
+    : GameModel(characterListFile)
 {
 
 }

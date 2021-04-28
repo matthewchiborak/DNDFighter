@@ -8,12 +8,14 @@
 #include "gamestatefactoryabstract.h"
 #include "userinputhandler.h"
 #include "battlebuilder.h"
+#include "characterselectbuilder.h"
 
 class GameController : public QObject
 {
     Q_OBJECT
 public:
-    GameController(AbstractView * view, GameModel * gameModel, GameStateFactoryAbstract * gameStateFactory, BattleBuilder * battleBuilder);
+    GameController(AbstractView * view, GameModel * gameModel,
+                   GameStateFactoryAbstract * gameStateFactory, BattleBuilder * battleBuilder, CharacterSelectBuilder * characterSelectBuilder);
 
     void start();
 
@@ -25,6 +27,7 @@ private:
     GameModel * gameModel;
     GameStateFactoryAbstract * gameStateFactory;
     BattleBuilder * battleBuilder;
+    CharacterSelectBuilder * characterSelectBuilder;
 
     UserInputHandler * userInputHandler;
 
@@ -33,7 +36,10 @@ private:
     double elapsed_millies;
     int frameCount;
 
+    bool allowGameModelUpdates;
+
     void handleFrameRate();
+    void switchToBattleMode();
 };
 
 #endif // GAMECONTROLLER_H

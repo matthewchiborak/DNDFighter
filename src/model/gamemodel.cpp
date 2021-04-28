@@ -1,6 +1,7 @@
 #include "gamemodel.h"
 
-GameModel::GameModel()
+GameModel::GameModel(std::string characterListFile)
+    : characterSelectModel(characterListFile)
 {
 
 }
@@ -28,4 +29,9 @@ BattleCharacter *GameModel::getCharacter1()
 BattleCharacter *GameModel::getCharacter2()
 {
     return character2;
+}
+
+CharacterSelectModel *GameModel::getCharacterSelectModel()
+{
+    return &characterSelectModel;
 }

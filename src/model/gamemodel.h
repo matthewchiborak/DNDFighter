@@ -2,11 +2,12 @@
 #define GAMEMODEL_H
 
 #include "battlecharacter.h"
+#include "characterselectmodel.h"
 
 class GameModel
 {
 public:
-    GameModel();
+    GameModel(std::string characterListFile);
 
     virtual void framePassed();
 
@@ -15,9 +16,12 @@ public:
     BattleCharacter * getCharacter1();
     BattleCharacter * getCharacter2();
 
+    CharacterSelectModel * getCharacterSelectModel();
+
 protected:
     BattleCharacter * character1;
     BattleCharacter * character2;
+    CharacterSelectModel characterSelectModel;
 };
 
 #endif // GAMEMODEL_H
