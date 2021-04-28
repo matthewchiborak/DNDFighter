@@ -13,9 +13,11 @@ void GameModelConcrete::framePassed()
     character1->framePassed();
     character2->framePassed();
 
+    handleSideSwitch();
     applyPhysics();
     advanceHitBoxes();
     handleCollisions();
+    handleHurtBoxRestrictions();
 }
 
 void GameModelConcrete::applyPhysics()
@@ -57,14 +59,18 @@ void GameModelConcrete::handleCollisions()
             {
                 if(character2->forceJump(character1->getActiveHitBoxes()->at(i)->getforceJumpDir()))
                 {
-                    character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage());
-                    character2->applyHitStun(character1->getActiveHitBoxes()->at(i)->gethitstun());
+                    character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage(),
+                                         character1->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                         character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                         character1->getActiveHitBoxes()->at(i)->getheightForBlocking());
                 }
             }
             else
             {
-                character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage());
-                character2->applyHitStun(character1->getActiveHitBoxes()->at(i)->gethitstun());
+                character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage(),
+                                     character1->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                     character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                     character1->getActiveHitBoxes()->at(i)->getheightForBlocking());
             }
 
             character1->getActiveHitBoxes()->at(i)->makeDone();
@@ -91,17 +97,151 @@ void GameModelConcrete::handleCollisions()
             {
                 if(character1->forceJump(character2->getActiveHitBoxes()->at(i)->getforceJumpDir()))
                 {
-                    character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage());
-                    character1->applyHitStun(character2->getActiveHitBoxes()->at(i)->gethitstun());
+                    character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage(),
+                                         character2->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                         character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                         character2->getActiveHitBoxes()->at(i)->getheightForBlocking());
                 }
             }
             else
             {
-                character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage());
-                character1->applyHitStun(character2->getActiveHitBoxes()->at(i)->gethitstun());
+                character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage(),
+                                     character2->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                     character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                     character2->getActiveHitBoxes()->at(i)->getheightForBlocking());
             }
 
             character2->getActiveHitBoxes()->at(i)->makeDone();
         }
+    }
+}
+
+void GameModelConcrete::handleHurtBoxRestrictions()
+{
+    if(character1->getHurtBoxLeft() < -1.77f)
+        character1->setPositionHurtBoxLeftRelative(-1.77f);
+    if(character2->getHurtBoxLeft() < -1.77f)
+        character2->setPositionHurtBoxLeftRelative(-1.77f);
+
+    if(character1->getHurtBoxRight() > 1.77f)
+        character1->setPositionHurtBoxRightRelative(1.77f);
+    if(character2->getHurtBoxRight() > 1.77f)
+        character2->setPositionHurtBoxRightRelative(1.77f);
+
+    //if(character1->getPositionY() < (character2->getPositionY() + character2->getHeight()) || character2->getPositionY() < (character1->getPositionY() + character1->getHeight()))
+    //If over the head
+    if(character1->getPositionY() > character2->getPositionY() + character2->gethurtBoxHeight())
+    {
+        //If in the corner swap
+        //If 2 is in corner and 1 is jumping over him, push p2 slightly forward
+        if(character1->getHurtBoxLeft() <= -1.77f && character2->getHurtBoxLeft() <= -1.77f)
+        {
+            character2->setPositionHurtBoxLeftRelative(-1.75f);
+        }
+        else if(character1->getHurtBoxRight() >= 1.77f && character2->getHurtBoxRight() >= 1.77f)
+        {
+            character2->setPositionHurtBoxRightRelative(1.75f);
+        }
+
+        return;
+    }
+    if(character2->getPositionY() > character1->getPositionY() + character1->gethurtBoxHeight())
+    {
+        //If in the corner swap
+        //If 1 is in corner and 2 is jumping over him, push p1 slightly forward
+        if(character2->getHurtBoxLeft() <= -1.77f && character1->getHurtBoxLeft() <= -1.77f)
+        {
+            character1->setPositionHurtBoxLeftRelative(-1.75f);
+        }
+        else if(character2->getHurtBoxRight() >= 1.77f && character1->getHurtBoxRight() >= 1.77f)
+        {
+            character1->setPositionHurtBoxRightRelative(1.75f);
+        }
+
+        return;
+    }
+
+
+    if(character1->getPositionX() < character2->getPositionX())
+    {
+        if(character1->getHurtBoxRight() > character2->getHurtBoxLeft())
+        {
+            if((character2->getHorzAxis() < 0 && character1->getHorzAxis() == 0) || (character1->getPositionY() > 0 && character2->getPositionY() <= 0))
+            {
+                character1->setPositionHurtBoxRightRelative(character2->getHurtBoxLeft());
+                //If pushoffscreenfixit
+                if(character1->getHurtBoxLeft() < -1.77f)
+                {
+                    character1->setPositionHurtBoxLeftRelative(-1.77f);
+                    character2->setPositionHurtBoxLeftRelative(-1.77f + character1->gethurtBoxWidth());
+                }
+            }
+            else if((character1->getHorzAxis() > 0 && character2->getHorzAxis() == 0) || (character2->getPositionY() > 0 && character1->getPositionY() <= 0))
+            {
+                character2->setPositionHurtBoxLeftRelative(character1->getHurtBoxRight());
+                //If pushoffscreenfixit
+                if(character2->getHurtBoxRight() > 1.77f)
+                {
+                    character2->setPositionHurtBoxRightRelative(1.77f);
+                    character1->setPositionHurtBoxRightRelative(1.77f - character2->gethurtBoxWidth());
+                }
+            }
+            else
+            {
+                float midX = (character1->getHurtBoxRight() + character2->getHurtBoxLeft()) / 2;
+                character1->setPositionHurtBoxRightRelative(midX);
+                character2->setPositionHurtBoxLeftRelative(midX);
+            }
+        }
+    }
+    else
+    {
+        if(character2->getHurtBoxRight() > character1->getHurtBoxLeft())
+        {
+            if((character1->getHorzAxis() < 0 && character2->getHorzAxis() == 0) || (character2->getPositionY() > 0 && character1->getPositionY() <= 0))
+            {
+                character2->setPositionHurtBoxRightRelative(character1->getHurtBoxLeft());
+                //If pushoffscreenfixit
+                if(character2->getHurtBoxLeft() < -1.77f)
+                {
+                    character2->setPositionHurtBoxLeftRelative(-1.77f);
+                    character1->setPositionHurtBoxLeftRelative(-1.77f + character2->gethurtBoxWidth());
+                }
+            }
+            else if((character2->getHorzAxis() > 0 && character1->getHorzAxis() == 0) || (character1->getPositionY() > 0 && character2->getPositionY() <= 0))
+            {
+                character1->setPositionHurtBoxLeftRelative(character2->getHurtBoxRight());
+                //If pushoffscreenfixit
+                if(character1->getHurtBoxRight() > 1.77f)
+                {
+                    character1->setPositionHurtBoxRightRelative(1.77f);
+                    character2->setPositionHurtBoxRightRelative(1.77f - character1->gethurtBoxWidth());
+                }
+            }
+            else
+            {
+                float midX = (character2->getHurtBoxRight() + character1->getHurtBoxLeft()) / 2;
+                character2->setPositionHurtBoxRightRelative(midX);
+                character1->setPositionHurtBoxLeftRelative(midX);
+            }
+        }
+    }
+
+
+
+
+}
+
+void GameModelConcrete::handleSideSwitch()
+{
+    if(character1->getPositionX() < character2->getPositionX())
+    {
+        character1->setIsFaceRight(true);
+        character2->setIsFaceRight(false);
+    }
+    else
+    {
+        character1->setIsFaceRight(false);
+        character2->setIsFaceRight(true);
     }
 }

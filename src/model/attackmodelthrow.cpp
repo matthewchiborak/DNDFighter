@@ -12,7 +12,15 @@ AttackModelThrow::AttackModelThrow(BattleCharacter *user, int recovery, int hitS
 HitBox *AttackModelThrow::applyAttack(float characterPosX, float characterPosY, int dir)
 {
     user->setRecovery(recovery);
-    return new HitBox(characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
-                      damage, w, h, velocityX, velocityY, heightForBlocking,
-                      isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, dir);
+
+    if(user->getIsFaceRight())
+    {
+        return new HitBox(characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+                          damage, w, h, velocityX, velocityY, heightForBlocking,
+                          isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, dir, true);
+    }
+
+    return new HitBox(characterPosX + user->getWidth() - posX - w, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+                      damage, w, h, -1 * velocityX, velocityY, heightForBlocking,
+                      isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, dir, true);
 }

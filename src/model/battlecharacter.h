@@ -37,8 +37,8 @@ public:
 
     virtual void applyGravity();
 
-    void doDamage(int amount);
-    virtual void applyHitStun(int hitStun);
+    virtual void doDamage(int amount, int hitStun, int blockStun, bool unblockable, int blockHeight);
+
     float getHealthPercentage();
     void setRecovery(int value);
     void addHitBox(HitBox * value);
@@ -68,6 +68,17 @@ public:
     float gethurtBoxPosY();
     float gethurtBoxHeight();
     float gethurtBoxWidth();
+
+    virtual void setIsFaceRight(bool isRight);
+    bool getIsFaceRight();
+
+    float getHurtBoxLeft();
+    float getHurtBoxRight();
+
+    void setPositionHurtBoxLeftRelative(float pos);
+    void setPositionHurtBoxRightRelative(float pos);
+
+    int getHorzAxis();
 
 protected:
     int currentHealth;
@@ -108,6 +119,8 @@ protected:
     float hurtBoxPosYCrouch;
     float hurtBoxHeightCrouch;
     float hurtBoxWidthCrouch;
+
+    bool isFacingRight;
 };
 
 #endif // BATTLECHARACTER_H

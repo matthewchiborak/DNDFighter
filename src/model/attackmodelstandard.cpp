@@ -12,7 +12,20 @@ AttackModelStandard::AttackModelStandard(BattleCharacter *user, int recovery, in
 HitBox *AttackModelStandard::applyAttack(float characterPosX, float characterPosY, int dir)
 {
     user->setRecovery(recovery);
-    return new HitBox(characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
-                      damage, w, h, velocityX, velocityY, heightForBlocking,
-                      isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, forceJumpDir);
+
+    int heightForBlockToUse = heightForBlocking;
+
+    if(user->getPositionY() > 0)
+        heightForBlockToUse = 2;
+
+    if(user->getIsFaceRight())
+    {
+        return new HitBox(characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+                          damage, w, h, velocityX, velocityY, heightForBlockToUse,
+                          isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, forceJumpDir, false);
+    }
+
+    return new HitBox(characterPosX + user->getWidth() - posX - w, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+                      damage, w, h, -1 * velocityX, velocityY, heightForBlockToUse,
+                      isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, -1 * forceJumpDir, false);
 }

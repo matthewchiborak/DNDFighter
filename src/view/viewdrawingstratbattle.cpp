@@ -28,7 +28,8 @@ void ViewDrawingStratBattle::drawCharacters(std::vector<DrawItem> *items)
                 model->getCharacter1()->getPositionY(),
                 model->getCharacter1()->getWidth(),
                 model->getCharacter1()->getHeight(),
-                model->getCharacter1()->getCurrentSprite()
+                model->getCharacter1()->getCurrentSprite(),
+                !model->getCharacter1()->getIsFaceRight()
                 );
     items->push_back(character1Item);
 
@@ -37,7 +38,8 @@ void ViewDrawingStratBattle::drawCharacters(std::vector<DrawItem> *items)
                 model->getCharacter2()->getPositionY(),
                 model->getCharacter2()->getWidth(),
                 model->getCharacter2()->getHeight(),
-                model->getCharacter2()->getCurrentSprite()
+                model->getCharacter2()->getCurrentSprite(),
+                !model->getCharacter2()->getIsFaceRight()
                 );
     items->push_back(character2Item);
 }
@@ -59,7 +61,8 @@ void ViewDrawingStratBattle::drawHitBoxACharacter(std::vector<DrawItem> *items, 
                         character->getActiveHitBoxes()->at(i)->getPosY(),
                         character->getActiveHitBoxes()->at(i)->getwidth(),
                         character->getActiveHitBoxes()->at(i)->getheight(),
-                        "\\CharacterSprites\\" + character->getSpriteKeyPrefix() + "\\" + character->getActiveHitBoxes()->at(i)->getsprite() + ".png"
+                        "\\CharacterSprites\\" + character->getSpriteKeyPrefix() + "\\" + character->getActiveHitBoxes()->at(i)->getsprite() + ".png",
+                        character->getActiveHitBoxes()->at(i)->getFlipSprite()
                         );
             items->push_back(hitbox1);
         }

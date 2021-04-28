@@ -24,7 +24,9 @@ public:
             float characterPosY,
             bool forceJumpSelf,
             bool forceJumpEnemy,
-            int forceJumpDir
+            int forceJumpDir,
+            bool isUnBlockable,
+            bool flip = false
             );
 
     bool gethasVisuals();
@@ -51,6 +53,10 @@ public:
     bool getforceAJumpSelf();
     int getforceJumpDir();
 
+    bool getFlipSprite();
+
+    bool getIsUnblockable();
+
     static bool boxCollisions(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2);
 
 private:
@@ -73,6 +79,9 @@ private:
     bool forceAJumpEnemy;
     bool forceAJumpSelf;
     int forceJumpDir;
+    bool isUnblockable;
+
+    bool flipSprite;
 
     float characterPosXAtSpawn;
     float characterPosYAtSpawn;

@@ -21,12 +21,14 @@ public:
 
     void applyGravity();
 
-    void applyHitStun(int hitStun);
+    void doDamage(int amount, int hitStun, int blockStun, bool unblockable, int blockHeight);
 
     void setHurtBox(float posx, float posy, float w, float h);
     void setHurtBoxCrouch(float posx, float posy, float w, float h);
 
     void advanceHitBoxes();
+
+    void setIsFaceRight(bool isRight);
 
 private:
     bool walkState = false;
@@ -36,8 +38,8 @@ private:
     float potentialJumpPos;
     int lockedDir = 0;
     int framesSinceLastJump = 1000;
-    float jumpVelo = (1.f/12.f);
-    float gravity = (-1.f/280.f);
+    float jumpVelo = (1.f/10.f);//(1.f/12.f);
+    float gravity = (-1.f/280.f);//(-1.f/360.f); //
 };
 
 #endif // BATTLECHARACTERPLAYERCONTROL_H

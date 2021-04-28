@@ -13,8 +13,16 @@ HitBox *AttackModelSpecial::applyAttack(float characterPosX, float characterPosY
 {
     user->setRecovery(recovery);
 
-    return new HitBox(characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
-                      damage, w, h, velocityX, velocityY, heightForBlocking, isFixedToCharacter, user->getPositionX(), user->getPositionY(),
-                      forceJumpSelf, forceJumpEnemy, forceJumpDir
+    if(user->getIsFaceRight())
+    {
+        return new HitBox(characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+                          damage, w, h, velocityX, velocityY, heightForBlocking, isFixedToCharacter, user->getPositionX(), user->getPositionY(),
+                          forceJumpSelf, forceJumpEnemy, forceJumpDir, false
+                          );
+    }
+    //Flip it
+    return new HitBox(characterPosX + user->getWidth() - posX - w, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+                      damage, w, h, -1*velocityX, velocityY, heightForBlocking, isFixedToCharacter, user->getPositionX(), user->getPositionY(),
+                      forceJumpSelf, forceJumpEnemy, -1 * forceJumpDir, false, true
                       );
 }

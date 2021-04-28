@@ -147,10 +147,20 @@ void BattleCharacterPlayerControl::doThrow()
 
     currentSpriteKeySuffix = "Throw";
 
-    if(axisHorz == 0)
-        addHitBox(throwModel->applyAttack(positionX, positionY, 1));
+    if(isFacingRight)
+    {
+        if(axisHorz == 0)
+            addHitBox(throwModel->applyAttack(positionX, positionY, 1));
+        else
+            addHitBox(throwModel->applyAttack(positionX, positionY, axisHorz));
+    }
     else
-        addHitBox(throwModel->applyAttack(positionX, positionY, axisHorz));
+    {
+        if(axisHorz == 0)
+            addHitBox(throwModel->applyAttack(positionX, positionY, -1));
+        else
+            addHitBox(throwModel->applyAttack(positionX, positionY, axisHorz));
+    }
 }
 
 void BattleCharacterPlayerControl::applyGravity()
@@ -170,11 +180,41 @@ void BattleCharacterPlayerControl::applyGravity()
 
 }
 
-void BattleCharacterPlayerControl::applyHitStun(int hitStun)
+void BattleCharacterPlayerControl::doDamage(int amount, int hitStun, int blockStun, bool unblockable, int blockHeight)
 {
-    recovery = hitStun;
-    this->hitstun = hitStun;
-    currentSpriteKeySuffix = "Hit";
+    //If blocking dont go farther
+    //Cant block if you're recovering
+    //Cant block in air
+    if(positionY <= 0)
+    {
+        if(!unblockable)
+        {
+            if(recovery <= 0)
+            {
+                if(isFacingRight && axisHorz < 0)
+                {
+                    if(blockHeight == 1 || (blockHeight == 0 && axisVert < 0) || (blockHeight == 2 && axisVert == 0))
+                        return;
+                }
+                if(!isFacingRight && axisHorz > 0)
+                {
+                    if(blockHeight == 1 || (blockHeight == 0 && axisVert < 0) || (blockHeight == 2 && axisVert == 0))
+                        return;
+                }
+            }
+        }
+    }
+
+    currentHealth -= amount;
+
+     if(currentHealth > maxHealth)
+         currentHealth = maxHealth;
+     if(currentHealth < 0)
+         currentHealth = 0;
+
+     recovery = hitStun;
+     this->hitstun = hitStun;
+     currentSpriteKeySuffix = "Hit";
 }
 
 void BattleCharacterPlayerControl::setHurtBox(float posx, float posy, float w, float h)
@@ -227,3 +267,12 @@ void BattleCharacterPlayerControl::advanceHitBoxes()
         delete toTrash.at(i);
     }
 }
+
+void BattleCharacterPlayerControl::setIsFaceRight(bool isRight)
+{
+    if(recovery > 0)
+        return;
+
+    isFacingRight = isRight;
+}
+

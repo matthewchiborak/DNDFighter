@@ -9,7 +9,7 @@ BattleCharacter::BattleCharacter(std::string spriteKeyPrefix)
     recovery = 0;
     hitstun = 0;
     height = 1.f;
-    width = 1.f;
+    width = 1.4f;
     axisHorz = 0;
     axisVert = 0;
 }
@@ -115,20 +115,11 @@ void BattleCharacter::applyGravity()
 
 }
 
-void BattleCharacter::doDamage(int amount)
-{
-    currentHealth -= amount;
-
-    if(currentHealth > maxHealth)
-        currentHealth = maxHealth;
-    if(currentHealth < 0)
-        currentHealth = 0;
-}
-
-void BattleCharacter::applyHitStun(int hitStun)
+void BattleCharacter::doDamage(int amount, int hitStun, int blockStun, bool unblockable, int blockHeight)
 {
 
 }
+
 
 float BattleCharacter::getHealthPercentage()
 {
@@ -256,4 +247,51 @@ float BattleCharacter::gethurtBoxWidth()
         return hurtBoxWidthCrouch;
 
     return hurtBoxWidth;
+}
+
+void BattleCharacter::setIsFaceRight(bool isRight)
+{
+
+}
+
+bool BattleCharacter::getIsFaceRight()
+{
+    return isFacingRight;
+}
+
+float BattleCharacter::getHurtBoxLeft()
+{
+    if(axisVert < 0)
+        return positionX + hurtBoxPosXCrouch;
+
+    return positionX + hurtBoxPosX;
+}
+
+float BattleCharacter::getHurtBoxRight()
+{
+    if(axisVert < 0)
+        return positionX + hurtBoxPosXCrouch + hurtBoxWidthCrouch;
+
+    return positionX + hurtBoxPosX + hurtBoxWidth;
+}
+
+void BattleCharacter::setPositionHurtBoxLeftRelative(float pos)
+{
+    if(axisVert < 0)
+        positionX = pos - hurtBoxPosXCrouch;
+    else
+        positionX = pos - hurtBoxPosX;
+}
+
+void BattleCharacter::setPositionHurtBoxRightRelative(float pos)
+{
+    if(axisVert < 0)
+        positionX = pos - hurtBoxPosXCrouch - hurtBoxWidthCrouch;
+    else
+        positionX = pos - hurtBoxPosX - hurtBoxWidth;
+}
+
+int BattleCharacter::getHorzAxis()
+{
+    return axisHorz;
 }
