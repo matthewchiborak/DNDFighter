@@ -6,6 +6,8 @@
 #include "attackmodelthrow.h"
 #include "attackmodelspecial.h"
 
+#include "specialpropertycommandsneak.h"
+
 #include "../filemanagment/fileReader.h"
 
 #include <QDebug>
@@ -39,7 +41,8 @@ int damage,
 bool isFixedToCharacter
 bool forceJumpSelf
 bool forceJumpEnemy
-bool forceJumpDir
+bool forceJumpDir,
+special props
 );
 */
 
@@ -173,6 +176,7 @@ bool forceJumpDir
                                                                    ,std::stoi(lineParts.at(14)) == 1
                                                                    ,std::stoi(lineParts.at(15)) == 1
                                                                    ,std::stoi(lineParts.at(16))
+                                                                   ,getSpecialPropertyCommand(lineParts.at(17), newChar)
                                                            ));
         else if(lineParts.at(0) == "ForwardSpecial")
             newChar->setForwardSpecialModel(new AttackModelSpecial(newChar,
@@ -192,6 +196,7 @@ bool forceJumpDir
                                                                    ,std::stoi(lineParts.at(14)) == 1
                                                                    ,std::stoi(lineParts.at(15)) == 1
                                                                    ,std::stoi(lineParts.at(16))
+                                                                   ,getSpecialPropertyCommand(lineParts.at(17), newChar)
                                                            ));
         else if(lineParts.at(0) == "DownSpecial")
             newChar->setDownSpecialModel(new AttackModelSpecial(newChar,
@@ -211,8 +216,17 @@ bool forceJumpDir
                                                                 ,std::stoi(lineParts.at(14)) == 1
                                                                 ,std::stoi(lineParts.at(15)) == 1
                                                                 ,std::stoi(lineParts.at(16))
+                                                                ,getSpecialPropertyCommand(lineParts.at(17), newChar)
                                                            ));
     }
 
     return newChar;
+}
+
+SpecialPropertyCommand *CharacterFactoryConcrete::getSpecialPropertyCommand(std::string key, BattleCharacter * user)
+{
+    if(key == "Sneak")
+        return new SpecialPropertyCommandSneak(user);
+
+    return nullptr;
 }

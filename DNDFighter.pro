@@ -44,6 +44,8 @@ SOURCES += \
         src/model/gamemodel.cpp \
         src/model/gamemodelconcrete.cpp \
         src/model/hitbox.cpp \
+        src/model/specialpropertycommand.cpp \
+        src/model/specialpropertycommandsneak.cpp \
         src/view/abstractview.cpp \
         src/view/drawitem.cpp \
         src/view/gameview.cpp \
@@ -93,6 +95,8 @@ HEADERS += \
     src/model/gamemodel.h \
     src/model/gamemodelconcrete.h \
     src/model/hitbox.h \
+    src/model/specialpropertycommand.h \
+    src/model/specialpropertycommandsneak.h \
     src/view/abstractview.h \
     src/view/drawitem.h \
     src/view/gameview.h \

@@ -3,12 +3,17 @@
 
 #include "characterfactory.h"
 
+#include "specialpropertycommand.h"
+
 class CharacterFactoryConcrete : public CharacterFactory
 {
 public:
     CharacterFactoryConcrete(std::string characterInfoFilepath);
 
     BattleCharacter * makeCharacter(std::string key);
+
+private:
+    SpecialPropertyCommand * getSpecialPropertyCommand(std::string key, BattleCharacter * user);
 };
 
 #endif // CHARACTERFACTORYCONCRETE_H

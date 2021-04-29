@@ -2,16 +2,21 @@
 
 #include "battlecharacter.h"
 
-AttackModelSpecial::AttackModelSpecial(BattleCharacter *user, int recovery, int hitStun, float posX, float posY, float w, float h, std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter, bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir)
+AttackModelSpecial::AttackModelSpecial(BattleCharacter *user, int recovery, int hitStun, float posX, float posY, float w, float h, std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter, bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir, SpecialPropertyCommand * specialProperty)
     : AttackModel(user, recovery, hitStun, posX, posY, w, h, hitboxSprite,
                   heightForBlocking, velocityX, velocityY, duration, damage, isFixedToCharacter, forceJumpSelf, forceJumpEnemy, forceJumpDir)
 {
-
+    this->specialProperty = specialProperty;
 }
 
 HitBox *AttackModelSpecial::applyAttack(float characterPosX, float characterPosY, int dir)
 {
     user->setRecovery(recovery);
+
+    if(specialProperty != nullptr)
+    {
+        specialProperty->execute();
+    }
 
     if(user->getIsFaceRight())
     {
