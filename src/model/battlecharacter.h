@@ -22,6 +22,7 @@ public:
     virtual void jump();
     virtual bool forceJump(int dir);
     virtual void doThrow();
+    virtual void forceMove(float moveSpeed);
 
     float getPositionX();
     void setPositionX(float value);
@@ -80,6 +81,8 @@ public:
 
     int getHorzAxis();
 
+    float getWalkSpeed();
+
 protected:
     int currentHealth;
     int maxHealth;
@@ -121,6 +124,10 @@ protected:
     float hurtBoxWidthCrouch;
 
     bool isFacingRight;
+
+    bool isForceMoving = false;
+    float forceMoveSpeed;
+
 };
 
 #endif // BATTLECHARACTER_H

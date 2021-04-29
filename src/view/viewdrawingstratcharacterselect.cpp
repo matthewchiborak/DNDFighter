@@ -25,8 +25,8 @@ void ViewDrawingStratCharacterSelect::draw(std::vector<DrawItem> *items)
         DrawItem portraitL(
                     -1.5f,
                     0.85f,
-                    1.4f,
-                    1.f,
+                    model->getCharacterSelectModel()->getCharacterWidths()->at(model->getCharacterSelectModel()->getCursorPos()),
+                    model->getCharacterSelectModel()->getCharacterHeights()->at(model->getCharacterSelectModel()->getCursorPos()),
                     "\\CharacterSprites\\"
                     + model->getCharacterSelectModel()->getCharacters()->at(model->getCharacterSelectModel()->getCursorPos()) + "\\Idle.png"
                     );
@@ -37,8 +37,8 @@ void ViewDrawingStratCharacterSelect::draw(std::vector<DrawItem> *items)
         DrawItem portraitL(
                     -1.5f,
                     0.85f,
-                    1.4f,
-                    1.f,
+                    model->getCharacterSelectModel()->getCharacterWidths()->at(model->getCharacterSelectModel()->getselectedOneIndex()),
+                    model->getCharacterSelectModel()->getCharacterHeights()->at(model->getCharacterSelectModel()->getselectedOneIndex()),
                     "\\CharacterSprites\\"
                     + model->getCharacterSelectModel()->getCharacters()->at(model->getCharacterSelectModel()->getselectedOneIndex()) + "\\Idle.png"
                     );
@@ -46,8 +46,8 @@ void ViewDrawingStratCharacterSelect::draw(std::vector<DrawItem> *items)
         DrawItem portraitR(
                     0.f,
                     0.85f,
-                    1.4f,
-                    1.f,
+                    model->getCharacterSelectModel()->getCharacterWidths()->at(model->getCharacterSelectModel()->getCursorPos()),
+                    model->getCharacterSelectModel()->getCharacterHeights()->at(model->getCharacterSelectModel()->getCursorPos()),
                     "\\CharacterSprites\\"
                     + model->getCharacterSelectModel()->getCharacters()->at(model->getCharacterSelectModel()->getCursorPos()) + "\\Idle.png",
                     true
@@ -59,8 +59,8 @@ void ViewDrawingStratCharacterSelect::draw(std::vector<DrawItem> *items)
         DrawItem portraitL(
                     -1.5f,
                     0.85f,
-                    1.4f,
-                    1.f,
+                    model->getCharacterSelectModel()->getCharacterWidths()->at(model->getCharacterSelectModel()->getselectedOneIndex()),
+                    model->getCharacterSelectModel()->getCharacterHeights()->at(model->getCharacterSelectModel()->getselectedOneIndex()),
                     "\\CharacterSprites\\"
                     + model->getCharacterSelectModel()->getCharacters()->at(model->getCharacterSelectModel()->getselectedOneIndex()) + "\\Idle.png"
                     );
@@ -68,8 +68,8 @@ void ViewDrawingStratCharacterSelect::draw(std::vector<DrawItem> *items)
         DrawItem portraitR(
                     0.f,
                     0.85f,
-                    1.4f,
-                    1.f,
+                    model->getCharacterSelectModel()->getCharacterWidths()->at(model->getCharacterSelectModel()->getselectedTwoIndex()),
+                    model->getCharacterSelectModel()->getCharacterHeights()->at(model->getCharacterSelectModel()->getselectedTwoIndex()),
                     "\\CharacterSprites\\"
                     + model->getCharacterSelectModel()->getCharacters()->at(model->getCharacterSelectModel()->getselectedTwoIndex()) + "\\Idle.png",
                     true

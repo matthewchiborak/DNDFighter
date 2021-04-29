@@ -11,7 +11,11 @@ CharacterSelectModel::CharacterSelectModel(std::string characterListFile)
     FileReader fr(characterListFile);
     while(fr.hasNext())
     {
-        characters.push_back(fr.next());
+        std::vector<std::string> splitUp = fr.splitString(fr.next(), ',');
+
+        characters.push_back(splitUp.at(0));
+        characterWidths.push_back(std::stof(splitUp.at(1)));
+        characterHeights.push_back(std::stof(splitUp.at(2)));
         numberOfCharacters++;
     }
 }
@@ -19,6 +23,16 @@ CharacterSelectModel::CharacterSelectModel(std::string characterListFile)
 std::vector<std::string> *CharacterSelectModel::getCharacters()
 {
     return &characters;
+}
+
+std::vector<float> *CharacterSelectModel::getCharacterWidths()
+{
+    return &characterWidths;
+}
+
+std::vector<float> *CharacterSelectModel::getCharacterHeights()
+{
+    return &characterHeights;
 }
 
 void CharacterSelectModel::moveCursor(int x, int y)

@@ -60,6 +60,11 @@ void BattleCharacter::doThrow()
 
 }
 
+void BattleCharacter::forceMove(float moveSpeed)
+{
+
+}
+
 float BattleCharacter::getPositionX()
 {
     return positionX;
@@ -294,4 +299,9 @@ void BattleCharacter::setPositionHurtBoxRightRelative(float pos)
 int BattleCharacter::getHorzAxis()
 {
     return axisHorz;
+}
+
+float BattleCharacter::getWalkSpeed()
+{
+    return walkSpeed;
 }

@@ -18,6 +18,7 @@ public:
     void jump();
     bool forceJump(int dir);
     void doThrow();
+    void forceMove(float moveSpeed);
 
     void applyGravity();
 

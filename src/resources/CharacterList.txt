@@ -1,4 +1,4 @@
-Duke
-Bullent
-Duke
-Duke
+Chad,1.4,1.2
+Bullent,1.4,1.0
+Duke,1.4,1.0
+Duke,1.4,1.0

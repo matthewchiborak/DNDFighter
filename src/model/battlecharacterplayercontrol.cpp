@@ -14,8 +14,17 @@ void BattleCharacterPlayerControl::framePassed()
     {
         recovery--;
         hitstun--;
+
+        if(isForceMoving)
+        {
+            positionX += (forceMoveSpeed);
+        }
+
         return;
     }
+
+    if(isForceMoving)
+        isForceMoving = false;
 
     if(axisVert < 0)
     {
@@ -161,6 +170,12 @@ void BattleCharacterPlayerControl::doThrow()
         else
             addHitBox(throwModel->applyAttack(positionX, positionY, axisHorz));
     }
+}
+
+void BattleCharacterPlayerControl::forceMove(float moveSpeed)
+{
+    forceMoveSpeed = moveSpeed;
+    isForceMoving = true;
 }
 
 void BattleCharacterPlayerControl::applyGravity()

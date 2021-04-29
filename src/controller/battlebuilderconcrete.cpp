@@ -54,7 +54,7 @@ void BattleBuilderConcrete::makePlayer2(std::string character, std::string type)
         resultInputHandler->addCommand(new ButtonCommandCrouch(gameModel, 'K', newPlayer));
         resultInputHandler->addCommand(new ButtonCommandPunch(gameModel, 'O', newPlayer));
         resultInputHandler->addCommand(new ButtonCommandKick(gameModel, 'P', newPlayer));
-        resultInputHandler->addCommand(new ButtonCommandSpecial(gameModel, ';', newPlayer));
+        resultInputHandler->addCommand(new ButtonCommandSpecial(gameModel, 'M', newPlayer));
         resultInputHandler->addCommand(new ButtonCommandThrow(gameModel, 'N', newPlayer));
         resultInputHandler->addCommand(new ButtonCommandJump(gameModel, 'I', newPlayer));
     }

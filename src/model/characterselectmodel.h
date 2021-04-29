@@ -10,6 +10,8 @@ public:
     CharacterSelectModel(std::string characterListFile);
 
     std::vector<std::string> * getCharacters();
+    std::vector<float> * getCharacterWidths();
+    std::vector<float> * getCharacterHeights();
 
     void moveCursor(int x, int y);
     void enter();
@@ -25,6 +27,8 @@ public:
 protected:
     std::string characterListFile;
     std::vector<std::string> characters;
+    std::vector<float> characterWidths;
+    std::vector<float> characterHeights;
     int numberOfCharacters;
 
     int cursorPosX = 0;

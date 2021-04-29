@@ -7,6 +7,8 @@
 #include "attackmodelspecial.h"
 
 #include "specialpropertycommandsneak.h"
+#include "specialpropertycommanddp.h"
+#include "specialpropertycommandstinger.h"
 
 #include "../filemanagment/fileReader.h"
 
@@ -57,6 +59,10 @@ special props
         }
         else if(lineParts.at(0) == "Walk")
            newChar->setWalkSpeed(std::stof(lineParts.at(1)));
+        else if(lineParts.at(0) == "SpriteWidth")
+           newChar->setWidth(std::stof(lineParts.at(1)));
+        else if(lineParts.at(0) == "SpriteHeight")
+           newChar->setHeight(std::stof(lineParts.at(1)));
         else if(lineParts.at(0) == "HorzJumpSpeed")
            newChar->setHorzJumpSpeed(std::stof(lineParts.at(1)));
         else if(lineParts.at(0) == "HurtBox")
@@ -227,6 +233,10 @@ SpecialPropertyCommand *CharacterFactoryConcrete::getSpecialPropertyCommand(std:
 {
     if(key == "Sneak")
         return new SpecialPropertyCommandSneak(user);
+    if(key == "DP")
+        return new SpecialPropertyCommandDP(user);
+    if(key == "Stinger")
+        return new SpecialPropertyCommandStinger(user);
 
     return nullptr;
 }
