@@ -8,6 +8,7 @@ class ViewDrawingStratBattle : public ViewDrawingStrat
 public:
     ViewDrawingStratBattle(GameModel * model);
 
+    void predraw(std::vector<DrawItem> * items);
     void draw(std::vector<DrawItem> * items);
 
 private:

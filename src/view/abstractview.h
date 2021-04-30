@@ -21,7 +21,7 @@ class AbstractView : public QOpenGLWindow
 public:
     AbstractView(SpriteFlyweightFactoryAbstract * spriteFlyFact);
 
-    void setDrawingStrat(ViewDrawingStrat * viewDrawingStrat);
+    virtual void setDrawingStrat(ViewDrawingStrat * viewDrawingStrat);
 
 signals:
     void frameInited();

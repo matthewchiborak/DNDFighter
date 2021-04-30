@@ -17,6 +17,7 @@ private:
     void handleHitBoxOnHitBoxCollisions();
     void handleHurtBoxRestrictions();
     void handleSideSwitch();
+
 };
 
 #endif // GAMEMODELCONCRETE_H

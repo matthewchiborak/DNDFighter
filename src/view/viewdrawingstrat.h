@@ -10,6 +10,7 @@ class ViewDrawingStrat
 public:
     ViewDrawingStrat(GameModel * model);
 
+    virtual void predraw(std::vector<DrawItem> * items);
     virtual void draw(std::vector<DrawItem> * items);
 
 protected:

@@ -85,6 +85,12 @@ public:
 
     void setDamageMultiplier(float value);
 
+    void pushBack(float value);
+
+    virtual bool wouldBlockThis(bool unblockable, int blockHeight);
+
+    virtual std::vector<std::string> * getAllSprites();
+
 protected:
     int currentHealth;
     int maxHealth;

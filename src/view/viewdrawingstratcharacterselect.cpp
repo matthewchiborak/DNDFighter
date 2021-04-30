@@ -6,6 +6,11 @@ ViewDrawingStratCharacterSelect::ViewDrawingStratCharacterSelect(GameModel * mod
 
 }
 
+void ViewDrawingStratCharacterSelect::predraw(std::vector<DrawItem> *items)
+{
+
+}
+
 void ViewDrawingStratCharacterSelect::draw(std::vector<DrawItem> *items)
 {
     for(int i = 0; i < model->getCharacterSelectModel()->getCharacters()->size(); i++)

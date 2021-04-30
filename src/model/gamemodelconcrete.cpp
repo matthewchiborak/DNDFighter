@@ -58,12 +58,16 @@ void GameModelConcrete::handleCollisions()
             }
             if(character1->getActiveHitBoxes()->at(i)->getforceAJumpEnemy())
             {
-                if(character2->forceJump(character1->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                if(!character2->wouldBlockThis(character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                               character1->getActiveHitBoxes()->at(i)->getheightForBlocking()))
                 {
-                    character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage(),
-                                         character1->getActiveHitBoxes()->at(i)->gethitstun(), 0,
-                                         character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
-                                         character1->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                    if(character2->forceJump(character1->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                    {
+                        character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage(),
+                                             character1->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                             character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                             character1->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                    }
                 }
             }
             else
@@ -72,6 +76,22 @@ void GameModelConcrete::handleCollisions()
                                      character1->getActiveHitBoxes()->at(i)->gethitstun(), 0,
                                      character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
                                      character1->getActiveHitBoxes()->at(i)->getheightForBlocking());
+            }
+
+            //Pushback
+            if(character1->getPositionX() < character2->getPositionX())
+            {
+                if(!character1->getActiveHitBoxes()->at(i)->isAProjectile())
+                    character1->pushBack(-0.05f);
+
+                character2->pushBack(0.05f);
+            }
+            else
+            {
+                if(!character1->getActiveHitBoxes()->at(i)->isAProjectile())
+                    character1->pushBack(0.05f);
+
+                character2->pushBack(-0.05f);
             }
 
             character1->getActiveHitBoxes()->at(i)->makeDone();
@@ -96,12 +116,16 @@ void GameModelConcrete::handleCollisions()
             }
             if(character2->getActiveHitBoxes()->at(i)->getforceAJumpEnemy())
             {
-                if(character1->forceJump(character2->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                if(!character1->wouldBlockThis(character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                               character2->getActiveHitBoxes()->at(i)->getheightForBlocking()))
                 {
-                    character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage(),
-                                         character2->getActiveHitBoxes()->at(i)->gethitstun(), 0,
-                                         character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
-                                         character2->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                    if(character1->forceJump(character2->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                    {
+                        character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage(),
+                                             character2->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                             character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                             character2->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                    }
                 }
             }
             else
@@ -110,6 +134,20 @@ void GameModelConcrete::handleCollisions()
                                      character2->getActiveHitBoxes()->at(i)->gethitstun(), 0,
                                      character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
                                      character2->getActiveHitBoxes()->at(i)->getheightForBlocking());
+            }
+
+            //Pushback
+            if(character1->getPositionX() < character2->getPositionX())
+            {
+                character1->pushBack(-0.05f);
+                if(!character2->getActiveHitBoxes()->at(i)->isAProjectile())
+                    character2->pushBack(0.05f);
+            }
+            else
+            {
+                character1->pushBack(0.05f);
+                if(!character2->getActiveHitBoxes()->at(i)->isAProjectile())
+                    character2->pushBack(-0.05f);
             }
 
             character2->getActiveHitBoxes()->at(i)->makeDone();
@@ -280,3 +318,7 @@ void GameModelConcrete::handleSideSwitch()
         character2->setIsFaceRight(true);
     }
 }
+
+
+
+

@@ -10,7 +10,7 @@ AbstractView::AbstractView(SpriteFlyweightFactoryAbstract *spriteFlyFact)
 
 void AbstractView::setDrawingStrat(ViewDrawingStrat *viewDrawingStrat)
 {
-    this->viewDrawingStrat = viewDrawingStrat;
+
 }
 
 void AbstractView::paintGL()

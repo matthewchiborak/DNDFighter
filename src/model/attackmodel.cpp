@@ -30,6 +30,11 @@ HitBox *AttackModel::applyAttack(float characterPosX, float characterPosY, int d
     return nullptr;
 }
 
+std::string AttackModel::getHitBoxSprite()
+{
+    return hitBoxSprite;
+}
+
 bool AttackModel::doesThisAttackAlreadyExists(std::string id)
 {
     for(int i = 0; i < user->getActiveHitBoxes()->size(); i++)

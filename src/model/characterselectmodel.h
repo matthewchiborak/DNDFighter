@@ -15,6 +15,7 @@ public:
 
     void moveCursor(int x, int y);
     void enter();
+    void cancel();
 
     int getCursorPos();
 

@@ -17,6 +17,7 @@ SOURCES += \
         src/controller/buttoncommandcrouch.cpp \
         src/controller/buttoncommandjump.cpp \
         src/controller/buttoncommandkick.cpp \
+        src/controller/buttoncommandmenucancel.cpp \
         src/controller/buttoncommandmenuenter.cpp \
         src/controller/buttoncommandmenumove.cpp \
         src/controller/buttoncommandmoveforward.cpp \
@@ -72,6 +73,7 @@ HEADERS += \
     src/controller/buttoncommandcrouch.h \
     src/controller/buttoncommandjump.h \
     src/controller/buttoncommandkick.h \
+    src/controller/buttoncommandmenucancel.h \
     src/controller/buttoncommandmenuenter.h \
     src/controller/buttoncommandmenumove.h \
     src/controller/buttoncommandmoveforward.h \

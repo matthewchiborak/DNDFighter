@@ -9,6 +9,8 @@ class GameView : public AbstractView
 public:
     GameView(SpriteFlyweightFactoryAbstract * spriteFlyFact);
 
+    void setDrawingStrat(ViewDrawingStrat * viewDrawingStrat);
+
 protected:
     void paintGL() Q_DECL_OVERRIDE;
     void resizeGL(int w, int h) Q_DECL_OVERRIDE;

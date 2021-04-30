@@ -8,6 +8,32 @@ ViewDrawingStratBattle::ViewDrawingStratBattle(GameModel *model)
 
 }
 
+void ViewDrawingStratBattle::predraw(std::vector<DrawItem> *items)
+{
+    std::vector<std::string> * allSprites1 = model->getCharacter1()->getAllSprites();
+    std::vector<std::string> * allSprites2 = model->getCharacter2()->getAllSprites();
+
+    for(int i = 0; i < allSprites1->size(); i++)
+    {
+        DrawItem character1Item(
+                    0,0,0,0,
+                    allSprites1->at(i)
+                    );
+        items->push_back(character1Item);
+    }
+    for(int i = 0; i < allSprites2->size(); i++)
+    {
+        DrawItem character1Item(
+                    0,0,0,0,
+                    allSprites2->at(i)
+                    );
+        items->push_back(character1Item);
+    }
+
+    delete allSprites1;
+    delete allSprites2;
+}
+
 void ViewDrawingStratBattle::draw(std::vector<DrawItem> *items)
 {
     drawBackground(items);

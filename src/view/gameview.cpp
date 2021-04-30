@@ -12,6 +12,24 @@ GameView::GameView(SpriteFlyweightFactoryAbstract *spriteFlyFact)
     connect(this, SIGNAL(frameSwapped()), this, SLOT(update()));
 }
 
+void GameView::setDrawingStrat(ViewDrawingStrat *viewDrawingStrat)
+{
+    this->viewDrawingStrat = viewDrawingStrat;
+
+    std::vector<DrawItem> itemsToDraw;
+    viewDrawingStrat->predraw(&itemsToDraw);
+
+    for(int i = 0; i < itemsToDraw.size(); i++)
+    {
+        SpriteFlyweight * focusFlyweight = spriteFlyFact->getFlyweight(itemsToDraw.at(i).key);
+
+        focusFlyweight->generate();
+        glEnable(GL_TEXTURE_2D);
+        focusFlyweight->bind(0);
+        glDisable(GL_TEXTURE_2D);
+    }
+}
+
 void GameView::paintGL()
 {
     emit frameInited();

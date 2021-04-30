@@ -310,3 +310,18 @@ void BattleCharacter::setDamageMultiplier(float value)
 {
     damageMultiplier = value;
 }
+
+void BattleCharacter::pushBack(float value)
+{
+    positionX += value;
+}
+
+bool BattleCharacter::wouldBlockThis(bool unblockable, int blockHeight)
+{
+    return false;
+}
+
+std::vector<std::string> *BattleCharacter::getAllSprites()
+{
+    return nullptr;
+}

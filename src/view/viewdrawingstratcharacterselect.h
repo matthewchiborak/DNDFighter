@@ -8,6 +8,7 @@ class ViewDrawingStratCharacterSelect : public ViewDrawingStrat
 public:
     ViewDrawingStratCharacterSelect(GameModel * model);
 
+    void predraw(std::vector<DrawItem> * items);
     void draw(std::vector<DrawItem> * items);
 };
 

@@ -70,6 +70,12 @@ void CharacterSelectModel::enter()
     }
 }
 
+void CharacterSelectModel::cancel()
+{
+    if(numberCharacterSelected > 0)
+        numberCharacterSelected--;
+}
+
 int CharacterSelectModel::getCursorPos()
 {
     return (cursorPosX*2) + (cursorPosY);

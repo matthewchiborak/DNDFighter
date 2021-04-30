@@ -16,6 +16,8 @@ public:
 
     virtual HitBox * applyAttack(float characterPosX, float characterPosY, int dir);
 
+    std::string getHitBoxSprite();
+
 protected:
     BattleCharacter * user;
 

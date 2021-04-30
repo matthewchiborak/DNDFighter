@@ -23,6 +23,8 @@ public:
     void applyGravity();
 
     void doDamage(int amount, int hitStun, int blockStun, bool unblockable, int blockHeight);
+    bool wouldBlockThis(bool unblockable, int blockHeight);
+    void forceJumpFromMidAirHit(int dir);
 
     void setHurtBox(float posx, float posy, float w, float h);
     void setHurtBoxCrouch(float posx, float posy, float w, float h);
@@ -30,6 +32,7 @@ public:
     void advanceHitBoxes();
 
     void setIsFaceRight(bool isRight);
+    std::vector<std::string> * getAllSprites();
 
 private:
     bool walkState = false;
@@ -41,6 +44,7 @@ private:
     int framesSinceLastJump = 1000;
     float jumpVelo = (1.f/10.f);//(1.f/12.f);
     float gravity = (-1.f/280.f);//(-1.f/360.f); //
+    float jumpStartingHeight = 0.f;
 };
 
 #endif // BATTLECHARACTERPLAYERCONTROL_H

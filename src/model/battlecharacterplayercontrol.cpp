@@ -132,6 +132,7 @@ void BattleCharacterPlayerControl::jump()
         return;
 
     lockedDir = axisHorz;
+    jumpStartingHeight = positionY;
     framesSinceLastJump = 0;
 }
 
@@ -144,6 +145,7 @@ bool BattleCharacterPlayerControl::forceJump(int dir)
         return false;
 
     lockedDir = dir;
+    jumpStartingHeight = positionY;
     framesSinceLastJump = 0;
     return true;
 }
@@ -185,7 +187,7 @@ void BattleCharacterPlayerControl::applyGravity()
     //x = x0 + v0t + 0.5at^2
     framesSinceLastJump++;
 
-    potentialJumpPos = (jumpVelo*framesSinceLastJump) + (0.5f * gravity * (framesSinceLastJump*framesSinceLastJump));
+    potentialJumpPos = jumpStartingHeight + (jumpVelo*framesSinceLastJump) + (0.5f * gravity * (framesSinceLastJump*framesSinceLastJump));
 
     if(potentialJumpPos > 0)
     {
@@ -235,6 +237,50 @@ void BattleCharacterPlayerControl::doDamage(int amount, int hitStun, int blockSt
          this->hitstun = hitStun;
          currentSpriteKeySuffix = "Hit";
      }
+
+     //If in the air, fly backwards
+     if(positionY > 0)
+     {
+         if(isFacingRight)
+             forceJumpFromMidAirHit(-1);
+         else
+             forceJumpFromMidAirHit(1);
+     }
+}
+
+bool BattleCharacterPlayerControl::wouldBlockThis(bool unblockable, int blockHeight)
+{
+    //If blocking dont go farther
+    //Cant block if you're recovering
+    //Cant block in air
+    if(positionY <= 0)
+    {
+        if(!unblockable)
+        {
+            if(recovery <= 0)
+            {
+                if(isFacingRight && axisHorz < 0)
+                {
+                    if(blockHeight == 1 || (blockHeight == 0 && axisVert < 0) || (blockHeight == 2 && axisVert == 0))
+                        return true;
+                }
+                if(!isFacingRight && axisHorz > 0)
+                {
+                    if(blockHeight == 1 || (blockHeight == 0 && axisVert < 0) || (blockHeight == 2 && axisVert == 0))
+                        return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+void BattleCharacterPlayerControl::forceJumpFromMidAirHit(int dir)
+{
+    lockedDir = dir;
+    jumpStartingHeight = positionY;
+    framesSinceLastJump = 0;
 }
 
 void BattleCharacterPlayerControl::setHurtBox(float posx, float posy, float w, float h)
@@ -294,5 +340,33 @@ void BattleCharacterPlayerControl::setIsFaceRight(bool isRight)
         return;
 
     isFacingRight = isRight;
+}
+
+std::vector<std::string> *BattleCharacterPlayerControl::getAllSprites()
+{
+    std::vector<std::string> * allSprites = new std::vector<std::string>();
+
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\Idle.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\Punch.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\Kick.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\Walk.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\CrouchIdle.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\CrouchPunch.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\CrouchKick.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\Hit.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\DownSpecial.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\ForwardSpecial.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\NeutralSpecial.png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\Throw.png");
+
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\" +
+                          neutralSpecialModel->getHitBoxSprite() + ".png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\" +
+                          downSpecialModel->getHitBoxSprite() + ".png");
+    allSprites->push_back("\\CharacterSprites\\" + spriteKeyPrefix + "\\" +
+                          forwardSpecialModel->getHitBoxSprite() + ".png");
+
+
+    return allSprites;
 }
 
