@@ -34,7 +34,7 @@ void ViewDrawingStratBattle::predraw(std::vector<DrawItem> *items)
     delete allSprites2;
 }
 
-void ViewDrawingStratBattle::draw(std::vector<DrawItem> *items)
+void ViewDrawingStratBattle::draw(std::vector<DrawItem> *items, std::vector<TextItem> *texts)
 {
     drawBackground(items);
     drawUI(items);
@@ -44,7 +44,14 @@ void ViewDrawingStratBattle::draw(std::vector<DrawItem> *items)
 
 void ViewDrawingStratBattle::drawBackground(std::vector<DrawItem> *items)
 {
-
+    DrawItem character2Item(
+                -1.77f,
+                0.f,
+                3.55f,
+                2.f,
+                model->getBackgroundFile()
+                );
+    items->push_back(character2Item);
 }
 
 void ViewDrawingStratBattle::drawCharacters(std::vector<DrawItem> *items)

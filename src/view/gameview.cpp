@@ -9,6 +9,9 @@ GameView::GameView(SpriteFlyweightFactoryAbstract *spriteFlyFact)
     fmt.setStencilBufferSize(8);
     setFormat(fmt);
 
+    m_brush = QBrush(Qt::red);
+    font.setPixelSize(48);
+
     connect(this, SIGNAL(frameSwapped()), this, SLOT(update()));
 }
 
@@ -40,15 +43,16 @@ void GameView::paintGL()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
 
-    QColor theColor(0, 0, 0);
+    QColor theColor(255, 255, 255);
     QPainter p(this);
     p.setFont(font);
     p.setBrush(m_brush);
-
-    QMatrix4x4 mvp = m_projection * m_view;
+    QPen thePen(theColor);
+    p.setPen(thePen);
 
     std::vector<DrawItem> itemsToDraw;
-    viewDrawingStrat->draw(&itemsToDraw);
+    std::vector<TextItem> textsToDraw;
+    viewDrawingStrat->draw(&itemsToDraw, &textsToDraw);
 
     //Now need to actually draw because i have to do it in this glass apparently
     for(int i = 0; i < itemsToDraw.size(); i++)
@@ -92,19 +96,19 @@ void GameView::paintGL()
 
         glDisable(GL_TEXTURE_2D);
     }
+
+    for(int i = 0; i < textsToDraw.size(); i++)
+    {
+        p.drawText((textsToDraw.at(i).x),
+                   (textsToDraw.at(i).y),
+                   (textsToDraw.at(i).w),
+                   (textsToDraw.at(i).h),
+                   Qt::AlignCenter,
+                   QString::fromStdString(textsToDraw.at(i).content));
+    }
 }
 
 void GameView::resizeGL(int w, int h)
 {
-    m_window_normalised_matrix.setToIdentity();
-    m_window_normalised_matrix.translate(w / 2.0, h / 2.0);
-    m_window_normalised_matrix.scale(w / 2.0, -h / 2.0);
-
-    m_window_painter_matrix.setToIdentity();
-    m_window_painter_matrix.translate(w / 2.0, h / 2.0);
-
-    m_projection.setToIdentity();
-    m_projection.ortho(-7.5f, 8.5f, -4.f, 5.f, -1.f, 1.f);
-
     glOrtho(-1.77f, 1.77f, 0.f, 2.f, -1.f, 1.f);
 }

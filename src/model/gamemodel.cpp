@@ -31,6 +31,16 @@ BattleCharacter *GameModel::getCharacter2()
     return character2;
 }
 
+void GameModel::setBackgroundFile(std::string value)
+{
+    backgroundFile = value;
+}
+
+std::string GameModel::getBackgroundFile()
+{
+    return "\\Backgrounds\\" + backgroundFile + ".png";
+}
+
 CharacterSelectModel *GameModel::getCharacterSelectModel()
 {
     return &characterSelectModel;

@@ -9,7 +9,7 @@ public:
     ViewDrawingStratCharacterSelect(GameModel * model);
 
     void predraw(std::vector<DrawItem> * items);
-    void draw(std::vector<DrawItem> * items);
+    void draw(std::vector<DrawItem> * items, std::vector<TextItem> * texts);
 };
 
 #endif // VIEWDRAWINGSTRATCHARACTERSELECT_H

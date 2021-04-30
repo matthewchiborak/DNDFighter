@@ -20,7 +20,7 @@ void BattleBuilderConcrete::makePlayer1(std::string character, std::string type)
     BattleCharacter * newPlayer = characterFactory->makeCharacter(character);
     gameModel->setCharacter1(newPlayer);
 
-    newPlayer->setPositionX(-1);
+    newPlayer->setPositionX(-1.5);
     newPlayer->setPositionY(0);
 
     if(type == "Player")
@@ -45,7 +45,7 @@ void BattleBuilderConcrete::makePlayer2(std::string character, std::string type)
     BattleCharacter * newPlayer = characterFactory->makeCharacter(character);
     gameModel->setCharacter2(newPlayer);
 
-    newPlayer->setPositionX(1);
+    newPlayer->setPositionX(1.5 - (newPlayer->getWidth()));
     newPlayer->setPositionY(0);
 
     if(type == "Player")
@@ -66,5 +66,5 @@ void BattleBuilderConcrete::makePlayer2(std::string character, std::string type)
 
 void BattleBuilderConcrete::makeStage(std::string stageKey)
 {
-
+    gameModel->setBackgroundFile(stageKey);
 }

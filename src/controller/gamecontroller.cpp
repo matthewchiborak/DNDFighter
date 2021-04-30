@@ -63,7 +63,7 @@ void GameController::switchToBattleMode()
     battleBuilder->start();
     battleBuilder->makePlayer1(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedOneIndex()), "Player");
     battleBuilder->makePlayer2(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedTwoIndex()), "Player");
-    battleBuilder->makeStage("Test");
+    battleBuilder->makeStage("Ship");
     this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
 
     view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("Battle"));

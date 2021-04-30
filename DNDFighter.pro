@@ -59,6 +59,7 @@ SOURCES += \
         src/view/spriteflyweightfactory.cpp \
         src/view/spriteflyweightfactoryabstract.cpp \
         src/view/stb_image.c \
+        src/view/textitem.cpp \
         src/view/viewdrawingstrat.cpp \
         src/view/viewdrawingstratbattle.cpp \
         src/view/viewdrawingstratcharacterselect.cpp
@@ -116,6 +117,7 @@ HEADERS += \
     src/view/spriteflyweightfactory.h \
     src/view/spriteflyweightfactoryabstract.h \
     src/view/stb_image.h \
+    src/view/textitem.h \
     src/view/viewdrawingstrat.h \
     src/view/viewdrawingstratbattle.h \
     src/view/viewdrawingstratcharacterselect.h

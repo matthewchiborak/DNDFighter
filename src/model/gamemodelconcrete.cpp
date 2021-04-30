@@ -5,7 +5,7 @@
 GameModelConcrete::GameModelConcrete(std::string characterListFile, MusicControllerAbstract * musicController)
     : GameModel(characterListFile, musicController)
 {
-
+    this->backgroundFile = "CharacterSelect";
 }
 
 void GameModelConcrete::framePassed()

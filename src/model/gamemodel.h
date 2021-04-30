@@ -16,6 +16,8 @@ public:
     void setCharacter2(BattleCharacter * value);
     BattleCharacter * getCharacter1();
     BattleCharacter * getCharacter2();
+    void setBackgroundFile(std::string value);
+    std::string getBackgroundFile();
 
     CharacterSelectModel * getCharacterSelectModel();
     MusicControllerAbstract *  getMusicController();
@@ -25,6 +27,7 @@ protected:
     BattleCharacter * character2;
     CharacterSelectModel characterSelectModel;
     MusicControllerAbstract * musicController;
+    std::string backgroundFile;
 };
 
 #endif // GAMEMODEL_H

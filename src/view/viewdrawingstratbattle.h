@@ -9,7 +9,7 @@ public:
     ViewDrawingStratBattle(GameModel * model);
 
     void predraw(std::vector<DrawItem> * items);
-    void draw(std::vector<DrawItem> * items);
+    void draw(std::vector<DrawItem> * items, std::vector<TextItem> * texts);
 
 private:
     void drawBackground(std::vector<DrawItem> *items);
