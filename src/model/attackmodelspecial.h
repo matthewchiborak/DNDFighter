@@ -7,7 +7,7 @@
 class AttackModelSpecial : public AttackModel
 {
 public:
-    AttackModelSpecial(BattleCharacter * user, int recovery, int hitStun, float posX, float posY, float w, float h,
+    AttackModelSpecial(BattleCharacter * user, std::string identifier, int recovery, int hitStun, float posX, float posY, float w, float h,
                        std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter,
                        bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir, SpecialPropertyCommand * specialProperty
                        );

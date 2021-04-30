@@ -16,6 +16,7 @@ void GameModelConcrete::framePassed()
     handleSideSwitch();
     applyPhysics();
     advanceHitBoxes();
+    handleHitBoxOnHitBoxCollisions();
     handleCollisions();
     handleHurtBoxRestrictions();
 }
@@ -112,6 +113,40 @@ void GameModelConcrete::handleCollisions()
             }
 
             character2->getActiveHitBoxes()->at(i)->makeDone();
+        }
+    }
+}
+
+void GameModelConcrete::handleHitBoxOnHitBoxCollisions()
+{
+    for(int i = 0; i < character1->getActiveHitBoxes()->size(); i++)
+    {
+        if(character1->getActiveHitBoxes()->at(i)->isDone())
+            continue;
+
+        for(int j = 0; j < character2->getActiveHitBoxes()->size(); j++)
+        {
+            if(character2->getActiveHitBoxes()->at(j)->isDone())
+                continue;
+
+            if(character1->getActiveHitBoxes()->at(i)->isAProjectile() && character2->getActiveHitBoxes()->at(j)->isAProjectile())
+            {
+                if(HitBox::boxCollisions(
+                            character1->getActiveHitBoxes()->at(i)->getPosX(),
+                            character1->getActiveHitBoxes()->at(i)->getPosY(),
+                            character1->getActiveHitBoxes()->at(i)->getwidth(),
+                            character1->getActiveHitBoxes()->at(i)->getheight(),
+                            character2->getActiveHitBoxes()->at(j)->getPosX(),
+                            character2->getActiveHitBoxes()->at(j)->getPosY(),
+                            character2->getActiveHitBoxes()->at(j)->getwidth(),
+                            character2->getActiveHitBoxes()->at(j)->getheight()
+                            ))
+                {
+                    //Cancel them
+                    character1->getActiveHitBoxes()->at(i)->makeDone();
+                    character2->getActiveHitBoxes()->at(j)->makeDone();
+                }
+            }
         }
     }
 }

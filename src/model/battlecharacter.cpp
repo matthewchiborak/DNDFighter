@@ -305,3 +305,8 @@ float BattleCharacter::getWalkSpeed()
 {
     return walkSpeed;
 }
+
+void BattleCharacter::setDamageMultiplier(float value)
+{
+    damageMultiplier = value;
+}

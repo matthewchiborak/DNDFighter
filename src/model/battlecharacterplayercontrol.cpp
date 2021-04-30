@@ -25,6 +25,8 @@ void BattleCharacterPlayerControl::framePassed()
 
     if(isForceMoving)
         isForceMoving = false;
+    if(damageMultiplier < 1 || damageMultiplier > 1)
+        damageMultiplier = 1;
 
     if(axisVert < 0)
     {
@@ -220,16 +222,19 @@ void BattleCharacterPlayerControl::doDamage(int amount, int hitStun, int blockSt
         }
     }
 
-    currentHealth -= amount;
+    currentHealth -= (amount * damageMultiplier);
 
      if(currentHealth > maxHealth)
          currentHealth = maxHealth;
      if(currentHealth < 0)
          currentHealth = 0;
 
-     recovery = hitStun;
-     this->hitstun = hitStun;
-     currentSpriteKeySuffix = "Hit";
+     if(damageMultiplier > 0)
+     {
+         recovery = hitStun;
+         this->hitstun = hitStun;
+         currentSpriteKeySuffix = "Hit";
+     }
 }
 
 void BattleCharacterPlayerControl::setHurtBox(float posx, float posy, float w, float h)

@@ -46,6 +46,7 @@ SOURCES += \
         src/model/hitbox.cpp \
         src/model/specialpropertycommand.cpp \
         src/model/specialpropertycommanddp.cpp \
+        src/model/specialpropertycommandheal.cpp \
         src/model/specialpropertycommandsneak.cpp \
         src/model/specialpropertycommandstinger.cpp \
         src/view/abstractview.cpp \
@@ -99,6 +100,7 @@ HEADERS += \
     src/model/hitbox.h \
     src/model/specialpropertycommand.h \
     src/model/specialpropertycommanddp.h \
+    src/model/specialpropertycommandheal.h \
     src/model/specialpropertycommandsneak.h \
     src/model/specialpropertycommandstinger.h \
     src/view/abstractview.h \

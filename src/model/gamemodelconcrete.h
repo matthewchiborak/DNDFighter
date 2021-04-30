@@ -14,6 +14,7 @@ private:
     void applyPhysics();
     void advanceHitBoxes();
     void handleCollisions();
+    void handleHitBoxOnHitBoxCollisions();
     void handleHurtBoxRestrictions();
     void handleSideSwitch();
 };

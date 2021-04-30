@@ -9,6 +9,7 @@
 #include "specialpropertycommandsneak.h"
 #include "specialpropertycommanddp.h"
 #include "specialpropertycommandstinger.h"
+#include "specialpropertycommandheal.h"
 
 #include "../filemanagment/fileReader.h"
 
@@ -71,6 +72,7 @@ special props
             newChar->setHurtBoxCrouch(std::stof(lineParts.at(1)), std::stof(lineParts.at(2)), std::stof(lineParts.at(3)), std::stof(lineParts.at(4)));
         else if(lineParts.at(0) == "Punch")
             newChar->setPunchModel(new AttackModelStandard(newChar,
+                                                           "Punch",
                                                            std::stoi(lineParts.at(1)),
                                                            std::stoi(lineParts.at(2)),
                                                            std::stof(lineParts.at(3)),
@@ -90,6 +92,7 @@ special props
                                                            ));
         else if(lineParts.at(0) == "Kick")
             newChar->setKickModel(new AttackModelStandard(newChar,
+                                                          "Kick",
                                                           std::stoi(lineParts.at(1)),
                                                           std::stoi(lineParts.at(2)),
                                                           std::stof(lineParts.at(3)),
@@ -109,6 +112,7 @@ special props
                                                            ));
         else if(lineParts.at(0) == "CrouchPunch")
             newChar->setCrouchPunchModel(new AttackModelStandard(newChar,
+                                                                 "CrouchPunch",
                                                                  std::stoi(lineParts.at(1)),
                                                                  std::stoi(lineParts.at(2)),
                                                                  std::stof(lineParts.at(3)),
@@ -128,6 +132,7 @@ special props
                                                            ));
         else if(lineParts.at(0) == "CrouchKick")
             newChar->setCrouchKickModel(new AttackModelStandard(newChar,
+                                                                "CrouchKick",
                                                                 std::stoi(lineParts.at(1)),
                                                                 std::stoi(lineParts.at(2)),
                                                                 std::stof(lineParts.at(3)),
@@ -147,6 +152,7 @@ special props
                                                            ));
         else if(lineParts.at(0) == "Throw")
             newChar->setThrowModel(new AttackModelThrow(newChar,
+                                                        "Throw",
                                                         std::stoi(lineParts.at(1)),
                                                         std::stoi(lineParts.at(2)),
                                                         std::stof(lineParts.at(3)),
@@ -166,6 +172,7 @@ special props
                                                            ));
         else if(lineParts.at(0) == "NeutralSpecial")
             newChar->setNeutralSpecialModel(new AttackModelSpecial(newChar,
+                                                                   "NeutralSpecial",
                                                                    std::stoi(lineParts.at(1)),
                                                                    std::stoi(lineParts.at(2)),
                                                                    std::stof(lineParts.at(3)),
@@ -186,6 +193,7 @@ special props
                                                            ));
         else if(lineParts.at(0) == "ForwardSpecial")
             newChar->setForwardSpecialModel(new AttackModelSpecial(newChar,
+                                                                   "ForwardSpecial",
                                                                    std::stoi(lineParts.at(1)),
                                                                    std::stoi(lineParts.at(2)),
                                                                    std::stof(lineParts.at(3)),
@@ -206,6 +214,7 @@ special props
                                                            ));
         else if(lineParts.at(0) == "DownSpecial")
             newChar->setDownSpecialModel(new AttackModelSpecial(newChar,
+                                                                "DownSpecial",
                                                                 std::stoi(lineParts.at(1)),
                                                                 std::stoi(lineParts.at(2)),
                                                                 std::stof(lineParts.at(3)),
@@ -237,6 +246,8 @@ SpecialPropertyCommand *CharacterFactoryConcrete::getSpecialPropertyCommand(std:
         return new SpecialPropertyCommandDP(user);
     if(key == "Stinger")
         return new SpecialPropertyCommandStinger(user);
+    if(key == "Heal")
+        return new SpecialPropertyCommandHeal(user);
 
     return nullptr;
 }

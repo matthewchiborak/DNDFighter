@@ -1,9 +1,10 @@
 #include "hitbox.h"
 
-HitBox::HitBox(float posx, float posy, bool hasVisuals, std::string sprite, int duration, int hitstun,
+HitBox::HitBox(std::string identifier, float posx, float posy, bool hasVisuals, std::string sprite, int duration, int hitstun,
                int damage, float width, float height, float velocityX, float velocityY, int heightForBlocking,
                bool isFixedToCharacter, float characterPosX, float characterPosY, bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir, bool isUnBlockable, bool flip)
 {
+    this->identifier = identifier;
     this->posx = posx;
     this->posy = posy;
     this->spawnPosX = posx;
@@ -159,4 +160,14 @@ bool HitBox::boxCollisions(float x1, float y1, float w1, float h1, float x2, flo
         return true;
 
     return false;
+}
+
+bool HitBox::isAProjectile()
+{
+    return !isFixedToCharacter;
+}
+
+std::string HitBox::getIdentifier()
+{
+    return identifier;
 }

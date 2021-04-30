@@ -2,13 +2,14 @@
 #define ATTACKMODEL_H
 
 #include "hitbox.h"
-//#include "battlecharacter.h"
+#include <string>
+
 class BattleCharacter;
 
 class AttackModel
 {
 public:
-    AttackModel(BattleCharacter * user, int recovery, int hitStun, float posX, float posY, float w, float h,
+    AttackModel(BattleCharacter * user, std::string identifier, int recovery, int hitStun, float posX, float posY, float w, float h,
                 std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter,
                 bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir
                 );
@@ -18,6 +19,7 @@ public:
 protected:
     BattleCharacter * user;
 
+    std::string identifier;
     int recovery;
     int hitStun;
     float posX;
@@ -34,6 +36,8 @@ protected:
     bool forceJumpSelf;
     bool forceJumpEnemy;
     int forceJumpDir;
+
+    bool doesThisAttackAlreadyExists(std::string id);
 };
 
 #endif // ATTACKMODEL_H

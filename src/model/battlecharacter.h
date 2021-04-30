@@ -83,6 +83,8 @@ public:
 
     float getWalkSpeed();
 
+    void setDamageMultiplier(float value);
+
 protected:
     int currentHealth;
     int maxHealth;
@@ -127,6 +129,8 @@ protected:
 
     bool isForceMoving = false;
     float forceMoveSpeed;
+
+    float damageMultiplier = 1;
 
 };
 

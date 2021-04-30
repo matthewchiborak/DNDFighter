@@ -2,8 +2,8 @@
 
 #include "battlecharacter.h"
 
-AttackModelThrow::AttackModelThrow(BattleCharacter *user, int recovery, int hitStun, float posX, float posY, float w, float h, std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter, bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir)
-    : AttackModel(user, recovery, hitStun, posX, posY, w, h,
+AttackModelThrow::AttackModelThrow(BattleCharacter *user, std::string identifier, int recovery, int hitStun, float posX, float posY, float w, float h, std::string hitboxSprite, int heightForBlocking, float velocityX, float velocityY, int duration, int damage, bool isFixedToCharacter, bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir)
+    : AttackModel(user, identifier, recovery, hitStun, posX, posY, w, h,
                   hitboxSprite, heightForBlocking, velocityX, velocityY, duration, damage, isFixedToCharacter, forceJumpSelf, forceJumpEnemy, forceJumpDir)
 {
 
@@ -11,16 +11,19 @@ AttackModelThrow::AttackModelThrow(BattleCharacter *user, int recovery, int hitS
 
 HitBox *AttackModelThrow::applyAttack(float characterPosX, float characterPosY, int dir)
 {
+    if(doesThisAttackAlreadyExists(identifier))
+        return nullptr;
+
     user->setRecovery(recovery);
 
     if(user->getIsFaceRight())
     {
-        return new HitBox(characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+        return new HitBox(identifier, characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
                           damage, w, h, velocityX, velocityY, heightForBlocking,
                           isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, dir, true);
     }
 
-    return new HitBox(characterPosX + user->getWidth() - posX - w, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
+    return new HitBox(identifier, characterPosX + user->getWidth() - posX - w, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
                       damage, w, h, -1 * velocityX, velocityY, heightForBlocking,
                       isFixedToCharacter, user->getPositionX(), user->getPositionY(), forceJumpSelf, forceJumpEnemy, dir, true);
 }
