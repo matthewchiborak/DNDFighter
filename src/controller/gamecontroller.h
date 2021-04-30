@@ -9,13 +9,16 @@
 #include "userinputhandler.h"
 #include "battlebuilder.h"
 #include "characterselectbuilder.h"
+#include "musiccontrollerabstract.h"
 
 class GameController : public QObject
 {
     Q_OBJECT
 public:
     GameController(AbstractView * view, GameModel * gameModel,
-                   GameStateFactoryAbstract * gameStateFactory, BattleBuilder * battleBuilder, CharacterSelectBuilder * characterSelectBuilder);
+                   GameStateFactoryAbstract * gameStateFactory,
+                   BattleBuilder * battleBuilder, CharacterSelectBuilder * characterSelectBuilder,
+                   MusicControllerAbstract * musicController);
 
     void start();
 
@@ -25,6 +28,7 @@ private slots:
 private:
     AbstractView * view;
     GameModel * gameModel;
+    MusicControllerAbstract * musicController;
     GameStateFactoryAbstract * gameStateFactory;
     BattleBuilder * battleBuilder;
     CharacterSelectBuilder * characterSelectBuilder;

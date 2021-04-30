@@ -12,11 +12,12 @@
 #include "specialpropertycommandheal.h"
 
 #include "../filemanagment/fileReader.h"
+#include "../controller/musiccontrollerabstract.h"
 
 #include <QDebug>
 
-CharacterFactoryConcrete::CharacterFactoryConcrete(std::string characterInfoFilepath)
-    : CharacterFactory(characterInfoFilepath)
+CharacterFactoryConcrete::CharacterFactoryConcrete(std::string characterInfoFilepath, MusicControllerAbstract *musicController)
+    : CharacterFactory(characterInfoFilepath, musicController)
 {
 
 }
@@ -25,7 +26,7 @@ BattleCharacter *CharacterFactoryConcrete::makeCharacter(std::string key)
 {
     FileReader fr(characterInfoFilepath + "\\" + key + ".txt");
 
-    BattleCharacter * newChar = new BattleCharacterPlayerControl(key);
+    BattleCharacter * newChar = new BattleCharacterPlayerControl(key, musicController);
 
     /*
     (BattleCharacter * user,

@@ -5,11 +5,12 @@
 #include <vector>
 #include "attackmodel.h"
 #include "hitbox.h"
+#include "../controller/musiccontrollerabstract.h"
 
 class BattleCharacter
 {
 public:
-    BattleCharacter(std::string spriteKeyPrefix);
+    BattleCharacter(std::string spriteKeyPrefix, MusicControllerAbstract * musicController);
 
     virtual void setHorzAxis(int value);
     virtual void setVertAxis(int value);
@@ -137,6 +138,8 @@ protected:
     float forceMoveSpeed;
 
     float damageMultiplier = 1;
+
+    MusicControllerAbstract * musicController;
 
 };
 

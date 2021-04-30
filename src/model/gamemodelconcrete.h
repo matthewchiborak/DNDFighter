@@ -6,7 +6,7 @@
 class GameModelConcrete : public GameModel
 {
 public:
-    GameModelConcrete(std::string characterListFile);
+    GameModelConcrete(std::string characterListFile, MusicControllerAbstract * musicController);
 
     void framePassed();
 

@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-GameController::GameController(AbstractView *view, GameModel *gameModel, GameStateFactoryAbstract *gameStateFactory, BattleBuilder * battleBuilder, CharacterSelectBuilder *characterSelectBuilder)
+GameController::GameController(AbstractView *view, GameModel *gameModel, GameStateFactoryAbstract *gameStateFactory, BattleBuilder * battleBuilder, CharacterSelectBuilder *characterSelectBuilder, MusicControllerAbstract *musicController)
 {
     allowGameModelUpdates = false;
 
@@ -11,17 +11,11 @@ GameController::GameController(AbstractView *view, GameModel *gameModel, GameSta
     this->gameStateFactory = gameStateFactory;
     this->battleBuilder = battleBuilder;
     this->characterSelectBuilder = characterSelectBuilder;
+    this->musicController = musicController;
 
     view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("CharacterSelect"));
+    musicController->playMusic("CharacterSelect");
     this->userInputHandler = characterSelectBuilder->getCreatedUserInputHandler();
-
-    //view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("Battle"));
-
-//    battleBuilder->start();
-//    battleBuilder->makePlayer1("Duke", "Player");
-//    battleBuilder->makePlayer2("Duke", "Player");
-//    battleBuilder->makeStage("Test");
-//    this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
 }
 
 void GameController::start()
@@ -73,6 +67,7 @@ void GameController::switchToBattleMode()
     this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
 
     view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("Battle"));
+    musicController->playMusic("Battle");
 
     allowGameModelUpdates = true;
 }

@@ -2,9 +2,10 @@
 
 #include <QDebug>
 
-BattleCharacter::BattleCharacter(std::string spriteKeyPrefix)
+BattleCharacter::BattleCharacter(std::string spriteKeyPrefix, MusicControllerAbstract *musicController)
 {
     this->spriteKeyPrefix = spriteKeyPrefix;
+    this->musicController = musicController;
 
     recovery = 0;
     hitstun = 0;
@@ -139,7 +140,10 @@ void BattleCharacter::setRecovery(int value)
 void BattleCharacter::addHitBox(HitBox *value)
 {
     if(value != nullptr)
+    {
         activeHitBoxes.push_back(value);
+        musicController->playSoundEffect("Attack");
+    }
 }
 
 void BattleCharacter::setMaxHealth(int value)

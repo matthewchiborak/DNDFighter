@@ -1,9 +1,9 @@
 #include "gamemodel.h"
 
-GameModel::GameModel(std::string characterListFile)
-    : characterSelectModel(characterListFile)
+GameModel::GameModel(std::string characterListFile, MusicControllerAbstract *musicController)
+    : characterSelectModel(characterListFile, musicController)
 {
-
+    this->musicController = musicController;
 }
 
 void GameModel::framePassed()
@@ -34,4 +34,9 @@ BattleCharacter *GameModel::getCharacter2()
 CharacterSelectModel *GameModel::getCharacterSelectModel()
 {
     return &characterSelectModel;
+}
+
+MusicControllerAbstract *GameModel::getMusicController()
+{
+    return musicController;
 }

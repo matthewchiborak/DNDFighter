@@ -8,7 +8,7 @@
 class CharacterFactoryConcrete : public CharacterFactory
 {
 public:
-    CharacterFactoryConcrete(std::string characterInfoFilepath);
+    CharacterFactoryConcrete(std::string characterInfoFilepath, MusicControllerAbstract *musicController);
 
     BattleCharacter * makeCharacter(std::string key);
 

@@ -6,7 +6,7 @@
 class BattleCharacterPlayerControl : public BattleCharacter
 {
 public:
-    BattleCharacterPlayerControl(std::string spriteKeyPrefix);
+    BattleCharacterPlayerControl(std::string spriteKeyPrefix, MusicControllerAbstract * musicController);
 
     void framePassed();
 

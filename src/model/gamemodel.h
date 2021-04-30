@@ -3,11 +3,12 @@
 
 #include "battlecharacter.h"
 #include "characterselectmodel.h"
+#include "../controller/musiccontrollerabstract.h"
 
 class GameModel
 {
 public:
-    GameModel(std::string characterListFile);
+    GameModel(std::string characterListFile, MusicControllerAbstract * musicController);
 
     virtual void framePassed();
 
@@ -17,11 +18,13 @@ public:
     BattleCharacter * getCharacter2();
 
     CharacterSelectModel * getCharacterSelectModel();
+    MusicControllerAbstract *  getMusicController();
 
 protected:
     BattleCharacter * character1;
     BattleCharacter * character2;
     CharacterSelectModel characterSelectModel;
+    MusicControllerAbstract * musicController;
 };
 
 #endif // GAMEMODEL_H

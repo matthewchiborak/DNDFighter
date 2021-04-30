@@ -2,8 +2,8 @@
 
 #include <QDebug>
 
-BattleCharacterPlayerControl::BattleCharacterPlayerControl(std::string spriteKeyPrefix)
-    : BattleCharacter(spriteKeyPrefix)
+BattleCharacterPlayerControl::BattleCharacterPlayerControl(std::string spriteKeyPrefix, MusicControllerAbstract *musicController)
+    : BattleCharacter(spriteKeyPrefix, musicController)
 {
     this->currentSpriteKeySuffix = "Idle";
 }
@@ -213,12 +213,18 @@ void BattleCharacterPlayerControl::doDamage(int amount, int hitStun, int blockSt
                 if(isFacingRight && axisHorz < 0)
                 {
                     if(blockHeight == 1 || (blockHeight == 0 && axisVert < 0) || (blockHeight == 2 && axisVert == 0))
+                    {
+                        musicController->playSoundEffect("Block");
                         return;
+                    }
                 }
                 if(!isFacingRight && axisHorz > 0)
                 {
                     if(blockHeight == 1 || (blockHeight == 0 && axisVert < 0) || (blockHeight == 2 && axisVert == 0))
+                    {
+                        musicController->playSoundEffect("Block");
                         return;
+                    }
                 }
             }
         }
@@ -233,6 +239,7 @@ void BattleCharacterPlayerControl::doDamage(int amount, int hitStun, int blockSt
 
      if(damageMultiplier > 0)
      {
+         musicController->playSoundEffect("Hit");
          recovery = hitStun;
          this->hitstun = hitStun;
          currentSpriteKeySuffix = "Hit";

@@ -1,3 +1,5 @@
 *.dll
 *.lib
 *.Lib
+*.mp3
+*.wav

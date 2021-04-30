@@ -3,11 +3,12 @@
 
 #include <string>
 #include <vector>
+#include "../controller/musiccontrollerabstract.h"
 
 class CharacterSelectModel
 {
 public:
-    CharacterSelectModel(std::string characterListFile);
+    CharacterSelectModel(std::string characterListFile, MusicControllerAbstract * musicController);
 
     std::vector<std::string> * getCharacters();
     std::vector<float> * getCharacterWidths();
@@ -40,6 +41,8 @@ protected:
     int selectedTwoIndex;
 
     bool readyToStartFight;
+
+    MusicControllerAbstract * musicController;
 };
 
 #endif // CHARACTERSELECTMODEL_H

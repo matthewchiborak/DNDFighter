@@ -2,11 +2,12 @@
 
 #include "../filemanagment/fileReader.h"
 
-CharacterSelectModel::CharacterSelectModel(std::string characterListFile)
+CharacterSelectModel::CharacterSelectModel(std::string characterListFile, MusicControllerAbstract * musicController)
 {
     this->characterListFile = characterListFile;
     numberOfCharacters = 0;
     readyToStartFight = false;
+    this->musicController = musicController;
 
     FileReader fr(characterListFile);
     while(fr.hasNext())
@@ -37,6 +38,8 @@ std::vector<float> *CharacterSelectModel::getCharacterHeights()
 
 void CharacterSelectModel::moveCursor(int x, int y)
 {
+    musicController->playSoundEffect("MenuMove");
+
     cursorPosX += x;
     cursorPosY += y;
 
@@ -53,6 +56,8 @@ void CharacterSelectModel::moveCursor(int x, int y)
 
 void CharacterSelectModel::enter()
 {
+    musicController->playSoundEffect("MenuEnter");
+
     if(numberCharacterSelected == 0)
     {
         numberCharacterSelected++;
@@ -73,7 +78,10 @@ void CharacterSelectModel::enter()
 void CharacterSelectModel::cancel()
 {
     if(numberCharacterSelected > 0)
+    {
+        musicController->playSoundEffect("MenuCancel");
         numberCharacterSelected--;
+    }
 }
 
 int CharacterSelectModel::getCursorPos()

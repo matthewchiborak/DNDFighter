@@ -1,4 +1,4 @@
-QT -= core gui opengl
+QT += core gui opengl multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,6 +29,8 @@ SOURCES += \
         src/controller/gamecontroller.cpp \
         src/controller/gamestatefactoryabstract.cpp \
         src/controller/gamestatefactoryconcrete.cpp \
+        src/controller/musiccontrollerabstract.cpp \
+        src/controller/musiccontrollerconcrete.cpp \
         src/controller/userinputhandler.cpp \
         src/filemanagment/fileReader.cpp \
         src/filemanagment/filewriter.cpp \
@@ -85,6 +87,8 @@ HEADERS += \
     src/controller/gamecontroller.h \
     src/controller/gamestatefactoryabstract.h \
     src/controller/gamestatefactoryconcrete.h \
+    src/controller/musiccontrollerabstract.h \
+    src/controller/musiccontrollerconcrete.h \
     src/controller/userinputhandler.h \
     src/filemanagment/fileReader.h \
     src/filemanagment/filewriter.h \
