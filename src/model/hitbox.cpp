@@ -2,7 +2,7 @@
 
 HitBox::HitBox(std::string identifier, float posx, float posy, bool hasVisuals, std::string sprite, int duration, int hitstun,
                int damage, float width, float height, float velocityX, float velocityY, int heightForBlocking,
-               bool isFixedToCharacter, float characterPosX, float characterPosY, bool forceJumpSelf, bool forceJumpEnemy, int forceJumpDir, bool isUnBlockable, bool flip)
+               bool isFixedToCharacter, float characterPosX, float characterPosY, bool forceJumpSelf, bool forceJumpEnemy, bool forceAJumpEnemyInAirOkay, int forceJumpDir, bool isUnBlockable, bool flip)
 {
     this->identifier = identifier;
     this->posx = posx;
@@ -25,6 +25,7 @@ HitBox::HitBox(std::string identifier, float posx, float posy, bool hasVisuals, 
 
     this->forceAJumpSelf = forceJumpSelf;
     this->forceAJumpEnemy = forceJumpEnemy;
+    this->forceAJumpEnemyInAirOkay = forceAJumpEnemyInAirOkay;
     this->forceJumpDir = forceJumpDir;
 
     this->isUnblockable = isUnBlockable;
@@ -127,6 +128,11 @@ float HitBox::getPosY()
 bool HitBox::getforceAJumpEnemy()
 {
     return forceAJumpEnemy;
+}
+
+bool HitBox::getForceAJumpInAirOkay()
+{
+    return forceAJumpEnemyInAirOkay;
 }
 
 bool HitBox::getforceAJumpSelf()

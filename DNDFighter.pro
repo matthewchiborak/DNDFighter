@@ -13,6 +13,7 @@ LIBS+ = -lGL -lGLU
 SOURCES += \
         src/controller/battlebuilder.cpp \
         src/controller/battlebuilderconcrete.cpp \
+        src/controller/battlecommandrandomactionforcpus.cpp \
         src/controller/buttoncommand.cpp \
         src/controller/buttoncommandcrouch.cpp \
         src/controller/buttoncommandjump.cpp \
@@ -72,6 +73,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     src/controller/battlebuilder.h \
     src/controller/battlebuilderconcrete.h \
+    src/controller/battlecommandrandomactionforcpus.h \
     src/controller/buttoncommand.h \
     src/controller/buttoncommandcrouch.h \
     src/controller/buttoncommandjump.h \

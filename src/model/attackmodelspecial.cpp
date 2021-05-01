@@ -25,12 +25,12 @@ HitBox *AttackModelSpecial::applyAttack(float characterPosX, float characterPosY
     {
         return new HitBox(identifier, characterPosX + posX, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
                           damage, w, h, velocityX, velocityY, heightForBlocking, isFixedToCharacter, user->getPositionX(), user->getPositionY(),
-                          forceJumpSelf, forceJumpEnemy, forceJumpDir, false
+                          forceJumpSelf, forceJumpEnemy, true, forceJumpDir, false
                           );
     }
     //Flip it
     return new HitBox(identifier, characterPosX + user->getWidth() - posX - w, characterPosY + posY, false, hitBoxSprite, duration, hitStun,
                       damage, w, h, -1*velocityX, velocityY, heightForBlocking, isFixedToCharacter, user->getPositionX(), user->getPositionY(),
-                      forceJumpSelf, forceJumpEnemy, -1 * forceJumpDir, false, true
+                      forceJumpSelf, forceJumpEnemy, true, -1 * forceJumpDir, false, true
                       );
 }

@@ -75,12 +75,23 @@ void GameModelConcrete::handleCollisions()
                 if(!character2->wouldBlockThis(character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
                                                character1->getActiveHitBoxes()->at(i)->getheightForBlocking()))
                 {
-                    if(character2->forceJump(character1->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                    if(character1->getActiveHitBoxes()->at(i)->getForceAJumpInAirOkay())
                     {
+                        character2->forceJumpInAirOkay(character1->getActiveHitBoxes()->at(i)->getforceJumpDir());
                         character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage(),
                                              character1->getActiveHitBoxes()->at(i)->gethitstun(), 0,
                                              character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
                                              character1->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                    }
+                    else
+                    {
+                        if(character2->forceJump(character1->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                        {
+                            character2->doDamage(character1->getActiveHitBoxes()->at(i)->getdamage(),
+                                                 character1->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                                 character1->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                                 character1->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                        }
                     }
                 }
             }
@@ -133,12 +144,23 @@ void GameModelConcrete::handleCollisions()
                 if(!character1->wouldBlockThis(character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
                                                character2->getActiveHitBoxes()->at(i)->getheightForBlocking()))
                 {
-                    if(character1->forceJump(character2->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                    if(character2->getActiveHitBoxes()->at(i)->getForceAJumpInAirOkay())
                     {
+                        character1->forceJumpInAirOkay(character2->getActiveHitBoxes()->at(i)->getforceJumpDir());
                         character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage(),
                                              character2->getActiveHitBoxes()->at(i)->gethitstun(), 0,
                                              character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
                                              character2->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                    }
+                    else
+                    {
+                        if(character1->forceJump(character2->getActiveHitBoxes()->at(i)->getforceJumpDir()))
+                        {
+                            character1->doDamage(character2->getActiveHitBoxes()->at(i)->getdamage(),
+                                                 character2->getActiveHitBoxes()->at(i)->gethitstun(), 0,
+                                                 character2->getActiveHitBoxes()->at(i)->getIsUnblockable(),
+                                                 character2->getActiveHitBoxes()->at(i)->getheightForBlocking());
+                        }
                     }
                 }
             }
@@ -223,11 +245,11 @@ void GameModelConcrete::handleHurtBoxRestrictions()
         //If 2 is in corner and 1 is jumping over him, push p2 slightly forward
         if(character1->getHurtBoxLeft() <= -1.77f && character2->getHurtBoxLeft() <= -1.77f)
         {
-            character2->setPositionHurtBoxLeftRelative(-1.75f);
+            character2->setPositionHurtBoxLeftRelative(-1.65f);
         }
-        else if(character1->getHurtBoxRight() >= 1.77f && character2->getHurtBoxRight() >= 1.77f)
+        else if(character1->getHurtBoxRight() >= 1.766f && character2->getHurtBoxRight() >= 1.766f)
         {
-            character2->setPositionHurtBoxRightRelative(1.75f);
+            character2->setPositionHurtBoxRightRelative(1.65f);
         }
 
         return;
@@ -238,11 +260,11 @@ void GameModelConcrete::handleHurtBoxRestrictions()
         //If 1 is in corner and 2 is jumping over him, push p1 slightly forward
         if(character2->getHurtBoxLeft() <= -1.77f && character1->getHurtBoxLeft() <= -1.77f)
         {
-            character1->setPositionHurtBoxLeftRelative(-1.75f);
+            character1->setPositionHurtBoxLeftRelative(-1.65f);
         }
-        else if(character2->getHurtBoxRight() >= 1.77f && character1->getHurtBoxRight() >= 1.77f)
+        else if(character2->getHurtBoxRight() >= 1.766f && character1->getHurtBoxRight() >= 1.766f)
         {
-            character1->setPositionHurtBoxRightRelative(1.75f);
+            character1->setPositionHurtBoxRightRelative(1.65f);
         }
 
         return;
@@ -361,8 +383,10 @@ void GameModelConcrete::checkForWin()
 
         character1->setPositionX(-1.5);
         character1->setPositionY(0);
+        character1->forceSetIsFaceRight(true);
         character2->setPositionX(1.5 - (character2->getWidth()));
         character2->setPositionY(0);
+        character2->forceSetIsFaceRight(false);
     }
 }
 

@@ -25,6 +25,7 @@ public:
             float characterPosY,
             bool forceJumpSelf,
             bool forceJumpEnemy,
+            bool forceAJumpEnemyInAirOkay,
             int forceJumpDir,
             bool isUnBlockable,
             bool flip = false
@@ -51,6 +52,7 @@ public:
     float getPosY();
 
     bool getforceAJumpEnemy();
+    bool getForceAJumpInAirOkay();
     bool getforceAJumpSelf();
     int getforceJumpDir();
 
@@ -82,6 +84,7 @@ private:
     int heightForBlocking; //0 - low, 1 - mid, 2- overhead
     bool isFixedToCharacter;
     bool forceAJumpEnemy;
+    bool forceAJumpEnemyInAirOkay;
     bool forceAJumpSelf;
     int forceJumpDir;
     bool isUnblockable;

@@ -6,6 +6,7 @@ BattleCharacterPlayerControl::BattleCharacterPlayerControl(std::string spriteKey
     : BattleCharacter(spriteKeyPrefix, musicController)
 {
     this->currentSpriteKeySuffix = "Idle";
+    recovery = 120;
 }
 
 void BattleCharacterPlayerControl::framePassed()
@@ -31,8 +32,11 @@ void BattleCharacterPlayerControl::framePassed()
     if(axisVert < 0)
     {
         this->currentSpriteKeySuffix = "CrouchIdle";
+        useCrouchHurtBox = true;
         return;
     }
+
+    useCrouchHurtBox = false;
 
     if(axisHorz != 0 && positionY <= 0)
     {
@@ -64,8 +68,12 @@ void BattleCharacterPlayerControl::reset()
 
     refillHealth();
 
-    recovery = 0;
+    framesSinceLastJump = 500;
+
+    recovery = 120;
     hitstun = 0;
+
+    this->currentSpriteKeySuffix = "Idle";
 }
 
 void BattleCharacterPlayerControl::setHorzAxis(int value)
@@ -164,6 +172,13 @@ bool BattleCharacterPlayerControl::forceJump(int dir)
     return true;
 }
 
+void BattleCharacterPlayerControl::forceJumpInAirOkay(int dir)
+{
+    lockedDir = dir;
+    jumpStartingHeight = positionY;
+    framesSinceLastJump = 0;
+}
+
 void BattleCharacterPlayerControl::doThrow()
 {
     if(recovery > 0)
@@ -245,6 +260,8 @@ void BattleCharacterPlayerControl::doDamage(int amount, int hitStun, int blockSt
     }
 
     currentHealth -= (amount * damageMultiplier);
+
+    useCrouchHurtBox = false;
 
      if(currentHealth > maxHealth)
          currentHealth = maxHealth;
@@ -360,6 +377,11 @@ void BattleCharacterPlayerControl::setIsFaceRight(bool isRight)
     if(recovery > 0)
         return;
 
+    isFacingRight = isRight;
+}
+
+void BattleCharacterPlayerControl::forceSetIsFaceRight(bool isRight)
+{
     isFacingRight = isRight;
 }
 

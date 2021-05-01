@@ -7,6 +7,7 @@ BattleCharacter::BattleCharacter(std::string spriteKeyPrefix, MusicControllerAbs
     this->spriteKeyPrefix = spriteKeyPrefix;
     this->musicController = musicController;
 
+    useCrouchHurtBox = false;
     recovery = 0;
     hitstun = 0;
     height = 1.f;
@@ -59,6 +60,11 @@ void BattleCharacter::jump()
 bool BattleCharacter::forceJump(int dir)
 {
     return false;
+}
+
+void BattleCharacter::forceJumpInAirOkay(int dir)
+{
+
 }
 
 void BattleCharacter::doThrow()
@@ -233,7 +239,7 @@ std::vector<HitBox *> *BattleCharacter::getActiveHitBoxes()
 
 float BattleCharacter::gethurtBoxPosX()
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         return positionX + hurtBoxPosXCrouch;
 
     return positionX + hurtBoxPosX;
@@ -241,7 +247,7 @@ float BattleCharacter::gethurtBoxPosX()
 
 float BattleCharacter::gethurtBoxPosY()
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         return positionY + hurtBoxPosYCrouch;
 
     return positionY + hurtBoxPosY;
@@ -249,7 +255,7 @@ float BattleCharacter::gethurtBoxPosY()
 
 float BattleCharacter::gethurtBoxHeight()
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         return hurtBoxHeightCrouch;
 
     return hurtBoxHeight;
@@ -257,13 +263,18 @@ float BattleCharacter::gethurtBoxHeight()
 
 float BattleCharacter::gethurtBoxWidth()
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         return hurtBoxWidthCrouch;
 
     return hurtBoxWidth;
 }
 
 void BattleCharacter::setIsFaceRight(bool isRight)
+{
+
+}
+
+void BattleCharacter::forceSetIsFaceRight(bool isRight)
 {
 
 }
@@ -275,7 +286,7 @@ bool BattleCharacter::getIsFaceRight()
 
 float BattleCharacter::getHurtBoxLeft()
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         return positionX + hurtBoxPosXCrouch;
 
     return positionX + hurtBoxPosX;
@@ -283,7 +294,7 @@ float BattleCharacter::getHurtBoxLeft()
 
 float BattleCharacter::getHurtBoxRight()
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         return positionX + hurtBoxPosXCrouch + hurtBoxWidthCrouch;
 
     return positionX + hurtBoxPosX + hurtBoxWidth;
@@ -291,7 +302,7 @@ float BattleCharacter::getHurtBoxRight()
 
 void BattleCharacter::setPositionHurtBoxLeftRelative(float pos)
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         positionX = pos - hurtBoxPosXCrouch;
     else
         positionX = pos - hurtBoxPosX;
@@ -299,7 +310,7 @@ void BattleCharacter::setPositionHurtBoxLeftRelative(float pos)
 
 void BattleCharacter::setPositionHurtBoxRightRelative(float pos)
 {
-    if(axisVert < 0)
+    if(useCrouchHurtBox)
         positionX = pos - hurtBoxPosXCrouch - hurtBoxWidthCrouch;
     else
         positionX = pos - hurtBoxPosX - hurtBoxWidth;

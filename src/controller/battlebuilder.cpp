@@ -9,9 +9,6 @@ BattleBuilder::BattleBuilder(GameModel *gameModel, CharacterFactory *characterFa
 
 void BattleBuilder::start()
 {
-//    if(resultInputHandler!=nullptr)
-//        delete resultInputHandler;
-
     resultInputHandler = new UserInputHandler(gameModel);
 }
 

@@ -24,6 +24,7 @@ public:
     virtual void special();
     virtual void jump();
     virtual bool forceJump(int dir);
+    virtual void forceJumpInAirOkay(int dir);
     virtual void doThrow();
     virtual void forceMove(float moveSpeed);
 
@@ -74,6 +75,7 @@ public:
     float gethurtBoxWidth();
 
     virtual void setIsFaceRight(bool isRight);
+    virtual void forceSetIsFaceRight(bool isRight);
     bool getIsFaceRight();
 
     float getHurtBoxLeft();
@@ -142,6 +144,8 @@ protected:
     float damageMultiplier = 1;
 
     MusicControllerAbstract * musicController;
+
+    bool useCrouchHurtBox;
 
 };
 

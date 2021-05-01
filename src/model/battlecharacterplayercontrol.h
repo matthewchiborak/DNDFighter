@@ -19,6 +19,7 @@ public:
     void special();
     void jump();
     bool forceJump(int dir);
+    void forceJumpInAirOkay(int dir);
     void doThrow();
     void forceMove(float moveSpeed);
 
@@ -34,6 +35,7 @@ public:
     void advanceHitBoxes();
 
     void setIsFaceRight(bool isRight);
+    void forceSetIsFaceRight(bool isRight);
     std::vector<std::string> * getAllSprites();
 
 private:
