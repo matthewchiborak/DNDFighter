@@ -26,6 +26,8 @@ public:
 
     bool getReadyToStartFight();
 
+    void reset();
+
 protected:
     std::string characterListFile;
     std::vector<std::string> characters;

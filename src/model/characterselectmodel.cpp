@@ -109,3 +109,11 @@ bool CharacterSelectModel::getReadyToStartFight()
     return readyToStartFight;
 }
 
+void CharacterSelectModel::reset()
+{
+    readyToStartFight = false;
+    numberCharacterSelected = 0;
+    cursorPosX = 0;
+    cursorPosY = 0;
+}
+

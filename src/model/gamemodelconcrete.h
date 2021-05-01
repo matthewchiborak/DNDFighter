@@ -10,6 +10,10 @@ public:
 
     void framePassed();
 
+    bool gameIsDone();
+
+
+
 private:
     void applyPhysics();
     void advanceHitBoxes();
@@ -17,6 +21,7 @@ private:
     void handleHitBoxOnHitBoxCollisions();
     void handleHurtBoxRestrictions();
     void handleSideSwitch();
+    void checkForWin();
 
 };
 

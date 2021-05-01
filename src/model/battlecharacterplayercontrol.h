@@ -10,6 +10,8 @@ public:
 
     void framePassed();
 
+    void reset();
+
     void setHorzAxis(int value);
     void setVertAxis(int value);
     void punch();

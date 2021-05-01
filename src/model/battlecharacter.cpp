@@ -31,6 +31,11 @@ void BattleCharacter::framePassed()
 
 }
 
+void BattleCharacter::reset()
+{
+
+}
+
 void BattleCharacter::punch()
 {
 

@@ -35,6 +35,15 @@ void GameController::eventLoopTimerTimeout()
     this->userInputHandler->handleUserInput();
 
     if(allowGameModelUpdates)
+    {
+        if(gameModel->gameIsDone())
+        {
+            switchToCharacterSelect();
+            return;
+        }
+    }
+
+    if(allowGameModelUpdates)
         gameModel->framePassed();
     else if(gameModel->getCharacterSelectModel()->getReadyToStartFight())
         switchToBattleMode();
@@ -60,14 +69,35 @@ void GameController::handleFrameRate()
 
 void GameController::switchToBattleMode()
 {
+    gameModel->setNumberOfP1Rounds(0);
+    gameModel->setNumberOfP2Rounds(0);
+
     battleBuilder->start();
     battleBuilder->makePlayer1(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedOneIndex()), "Player");
     battleBuilder->makePlayer2(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedTwoIndex()), "Player");
     battleBuilder->makeStage("Ship");
+
+    UserInputHandler * temp = this->userInputHandler;
     this->userInputHandler = battleBuilder->getCreatedUserInputHandler();
+    delete temp;
 
     view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("Battle"));
     musicController->playMusic("Battle");
 
     allowGameModelUpdates = true;
+}
+
+void GameController::switchToCharacterSelect()
+{
+    allowGameModelUpdates = false;
+
+    gameModel->getCharacterSelectModel()->reset();
+
+    UserInputHandler * temp = this->userInputHandler;
+    this->userInputHandler = characterSelectBuilder->getCreatedUserInputHandler();
+    delete temp;
+
+    gameModel->setBackgroundFile("CharacterSelect");
+    view->setDrawingStrat(gameStateFactory->getViewDrawingStrat("CharacterSelect"));
+    musicController->playMusic("CharacterSelect");
 }

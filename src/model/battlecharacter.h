@@ -17,6 +17,8 @@ public:
 
     virtual void framePassed();
 
+    virtual void reset();
+
     virtual void punch();
     virtual void kick();
     virtual void special();

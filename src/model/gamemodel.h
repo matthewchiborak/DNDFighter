@@ -12,6 +12,15 @@ public:
 
     virtual void framePassed();
 
+    virtual bool gameIsDone();
+
+    int getNumberOfWinsNeeded();
+    int getNumberOfP1Rounds();
+    int getNumberOfP2Rounds();
+    void setNumberOfWinsNeeded(int value);
+    void setNumberOfP1Rounds(int value);
+    void setNumberOfP2Rounds(int value);
+
     void setCharacter1(BattleCharacter * value);
     void setCharacter2(BattleCharacter * value);
     BattleCharacter * getCharacter1();
@@ -28,6 +37,10 @@ protected:
     CharacterSelectModel characterSelectModel;
     MusicControllerAbstract * musicController;
     std::string backgroundFile;
+
+    int numberOfWinsNeeded;
+    int numberOfP1Rounds;
+    int numberOfP2Rounds;
 };
 
 #endif // GAMEMODEL_H

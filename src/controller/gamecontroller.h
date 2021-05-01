@@ -44,6 +44,7 @@ private:
 
     void handleFrameRate();
     void switchToBattleMode();
+    void switchToCharacterSelect();
 };
 
 #endif // GAMECONTROLLER_H

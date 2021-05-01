@@ -150,6 +150,24 @@ void ViewDrawingStratBattle::drawUI(std::vector<DrawItem> *items)
                 "\\UI\\HealthBarFront.png"
                 );
     items->push_back(char1HealthBarFront);
+
+    for(int i = 0; i < model->getNumberOfWinsNeeded(); i++)
+    {
+        std::string path = "\\UI\\RoundEmpty.png";
+        if(i < model->getNumberOfP1Rounds())
+        {
+            path = "\\UI\\RoundWin.png";
+        }
+
+        DrawItem round(
+                    -1.35f + 1.2f - (0.11 * (i+1)),
+                    1.69f,
+                    0.1f,
+                    0.1f,
+                    path
+                    );
+        items->push_back(round);
+    }
     /////////////////////////////////////
 
     DrawItem character2Item(
@@ -178,4 +196,22 @@ void ViewDrawingStratBattle::drawUI(std::vector<DrawItem> *items)
                 "\\UI\\HealthBarFront.png"
                 );
     items->push_back(char2HealthBarFront);
+
+    for(int i = 0; i < model->getNumberOfWinsNeeded(); i++)
+    {
+        std::string path = "\\UI\\RoundEmpty.png";
+        if(i < model->getNumberOfP2Rounds())
+        {
+            path = "\\UI\\RoundWin.png";
+        }
+
+        DrawItem round(
+                    0.15f + (0.11 * i),
+                    1.69f,
+                    0.1f,
+                    0.1f,
+                    path
+                    );
+        items->push_back(round);
+    }
 }

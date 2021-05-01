@@ -11,6 +11,41 @@ void GameModel::framePassed()
 
 }
 
+bool GameModel::gameIsDone()
+{
+    return false;
+}
+
+int GameModel::getNumberOfWinsNeeded()
+{
+    return numberOfWinsNeeded;
+}
+
+int GameModel::getNumberOfP1Rounds()
+{
+    return numberOfP1Rounds;
+}
+
+int GameModel::getNumberOfP2Rounds()
+{
+    return numberOfP2Rounds;
+}
+
+void GameModel::setNumberOfWinsNeeded(int value)
+{
+    numberOfWinsNeeded = value;
+}
+
+void GameModel::setNumberOfP1Rounds(int value)
+{
+    numberOfP1Rounds = value;
+}
+
+void GameModel::setNumberOfP2Rounds(int value)
+{
+    numberOfP2Rounds = value;
+}
+
 void GameModel::setCharacter1(BattleCharacter *value)
 {
     character1 = value;

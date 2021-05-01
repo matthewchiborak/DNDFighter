@@ -54,6 +54,20 @@ void BattleCharacterPlayerControl::framePassed()
     this->currentSpriteKeySuffix = "Idle";
 }
 
+void BattleCharacterPlayerControl::reset()
+{
+    for(int i = 0; i < activeHitBoxes.size(); i++)
+    {
+        delete activeHitBoxes.at(i);
+    }
+    activeHitBoxes.clear();
+
+    refillHealth();
+
+    recovery = 0;
+    hitstun = 0;
+}
+
 void BattleCharacterPlayerControl::setHorzAxis(int value)
 {
     axisHorz = value;

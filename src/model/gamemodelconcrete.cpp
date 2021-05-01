@@ -6,6 +6,9 @@ GameModelConcrete::GameModelConcrete(std::string characterListFile, MusicControl
     : GameModel(characterListFile, musicController)
 {
     this->backgroundFile = "CharacterSelect";
+    this->numberOfWinsNeeded = 3;
+    this->numberOfP1Rounds = 0;
+    this->numberOfP2Rounds = 0;
 }
 
 void GameModelConcrete::framePassed()
@@ -19,6 +22,17 @@ void GameModelConcrete::framePassed()
     handleHitBoxOnHitBoxCollisions();
     handleCollisions();
     handleHurtBoxRestrictions();
+    checkForWin();
+}
+
+bool GameModelConcrete::gameIsDone()
+{
+    if(numberOfP1Rounds >= numberOfWinsNeeded)
+        return true;
+    if(numberOfP2Rounds >= numberOfWinsNeeded)
+        return true;
+
+    return false;
 }
 
 void GameModelConcrete::applyPhysics()
@@ -316,6 +330,39 @@ void GameModelConcrete::handleSideSwitch()
     {
         character1->setIsFaceRight(false);
         character2->setIsFaceRight(true);
+    }
+}
+
+void GameModelConcrete::checkForWin()
+{
+    bool roundOver = false;
+
+    if(character1->getHealthPercentage() <= 0 && character2->getHealthPercentage() <= 0)
+    {
+        numberOfP1Rounds++;
+        numberOfP2Rounds++;
+        roundOver = true;
+    }
+    else if(character1->getHealthPercentage() <= 0)
+    {
+        numberOfP2Rounds++;
+        roundOver = true;
+    }
+    else if(character2->getHealthPercentage() <= 0)
+    {
+        numberOfP1Rounds++;
+        roundOver = true;
+    }
+
+    if(roundOver)
+    {
+        character1->reset();
+        character2->reset();
+
+        character1->setPositionX(-1.5);
+        character1->setPositionY(0);
+        character2->setPositionX(1.5 - (character2->getWidth()));
+        character2->setPositionY(0);
     }
 }
 
