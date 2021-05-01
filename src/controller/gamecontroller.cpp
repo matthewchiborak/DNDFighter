@@ -73,8 +73,14 @@ void GameController::switchToBattleMode()
     gameModel->setNumberOfP2Rounds(0);
 
     battleBuilder->start();
-    battleBuilder->makePlayer1(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedOneIndex()), "Player");
-    battleBuilder->makePlayer2(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedTwoIndex()), "Player");
+    if(gameModel->getCharacterSelectModel()->getP1IsACPU())
+        battleBuilder->makePlayer1(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedOneIndex()), "CPU");
+    else
+        battleBuilder->makePlayer1(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedOneIndex()), "Player");
+    if(gameModel->getCharacterSelectModel()->getP2IsACPU())
+        battleBuilder->makePlayer2(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedTwoIndex()), "CPU");
+    else
+        battleBuilder->makePlayer2(gameModel->getCharacterSelectModel()->getCharacters()->at(gameModel->getCharacterSelectModel()->getselectedTwoIndex()), "Player");
     battleBuilder->makeStage("Ship");
 
     UserInputHandler * temp = this->userInputHandler;

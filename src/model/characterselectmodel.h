@@ -15,7 +15,7 @@ public:
     std::vector<float> * getCharacterHeights();
 
     void moveCursor(int x, int y);
-    void enter();
+    void enter(std::string type);
     void cancel();
 
     int getCursorPos();
@@ -23,6 +23,8 @@ public:
     int getnumberCharacterSelected();
     int getselectedOneIndex();
     int getselectedTwoIndex();
+    bool getP1IsACPU();
+    bool getP2IsACPU();
 
     bool getReadyToStartFight();
 
@@ -40,7 +42,9 @@ protected:
 
     int numberCharacterSelected = 0;
     int selectedOneIndex;
+    bool p1IsACPU;
     int selectedTwoIndex;
+    bool p2IsACPU;
 
     bool readyToStartFight;
 

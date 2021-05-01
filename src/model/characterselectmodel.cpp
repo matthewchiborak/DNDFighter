@@ -54,7 +54,7 @@ void CharacterSelectModel::moveCursor(int x, int y)
         cursorPosX = (numberOfCharacters-1)/2;
 }
 
-void CharacterSelectModel::enter()
+void CharacterSelectModel::enter(std::string type)
 {
     musicController->playSoundEffect("MenuEnter");
 
@@ -62,11 +62,13 @@ void CharacterSelectModel::enter()
     {
         numberCharacterSelected++;
         selectedOneIndex = getCursorPos();
+        p1IsACPU = (type == "CPU");
     }
     else if(numberCharacterSelected == 1)
     {
         numberCharacterSelected++;
         selectedTwoIndex = getCursorPos();
+        p2IsACPU = (type == "CPU");
     }
     else if(numberCharacterSelected == 2)
     {
@@ -102,6 +104,16 @@ int CharacterSelectModel::getselectedOneIndex()
 int CharacterSelectModel::getselectedTwoIndex()
 {
     return selectedTwoIndex;
+}
+
+bool CharacterSelectModel::getP1IsACPU()
+{
+    return p1IsACPU;
+}
+
+bool CharacterSelectModel::getP2IsACPU()
+{
+    return p2IsACPU;
 }
 
 bool CharacterSelectModel::getReadyToStartFight()

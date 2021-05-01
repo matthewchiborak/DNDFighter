@@ -15,7 +15,8 @@ UserInputHandler *CharacterSelectBuilderConcrete::getCreatedUserInputHandler()
     UserInputHandler * resultInputHandler = new UserInputHandler(gameModel);
 
     resultInputHandler->addCommand(new ButtonCommandMenuMove(gameModel, 'W', 'S', 'A', 'D'));
-    resultInputHandler->addCommand(new ButtonCommandMenuEnter(gameModel, 'E'));
+    resultInputHandler->addCommand(new ButtonCommandMenuEnter(gameModel, 'E', "Player"));
+    resultInputHandler->addCommand(new ButtonCommandMenuEnter(gameModel, 'R', "CPU"));
     resultInputHandler->addCommand(new ButtonCommandMenuCancel(gameModel, 'Q'));
 
     return resultInputHandler;
